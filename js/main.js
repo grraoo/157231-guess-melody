@@ -1,8 +1,10 @@
+import welcomeScreen from "./screens/screen-main";
+
 const appNode = document.querySelector(`.app`);
 const screensTemplate = document.getElementById(`templates`).content;
 
 const screensArray = [
-  screensTemplate.querySelector(`.main.main--welcome`),
+  welcomeScreen,
   screensTemplate.querySelector(`.main.main--level-artist`),
   screensTemplate.querySelector(`.main.main--level-genre`),
 ];
@@ -11,9 +13,9 @@ const allScreensArray = screensArray.concat(resultsScreensArr);
 
 let screenIndex = 0;
 
-function switchScreen(index) {
+function switchScreen(screen) {
   const mainContent = appNode.querySelector(`.main`);
-  appNode.replaceChild(allScreensArray[index], mainContent);
+  appNode.replaceChild(screen, mainContent);
 }
 
 function changeScreen(evt) {
@@ -23,17 +25,17 @@ function changeScreen(evt) {
       case `ArrowRight`:
         evt.preventDefault();
         screenIndex = (++screenIndex) % mod;
-        switchScreen(screenIndex);
+        switchScreen(allScreensArray[screenIndex]);
         break;
       case `ArrowLeft`:
         evt.preventDefault();
         screenIndex = (--screenIndex + mod) % mod;
-        switchScreen(screenIndex);
+        switchScreen(allScreensArray[screenIndex]);
         break;
     }
   }
 }
 
-switchScreen(screenIndex);
+switchScreen(welcomeScreen);
 
 document.addEventListener(`keydown`, changeScreen);
