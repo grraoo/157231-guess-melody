@@ -1,39 +1,55 @@
-const appNode = document.querySelector(`.app`);
-const screensTemplate = document.getElementById(`templates`).content;
+import switchScreen from "./utils/switch-screen";
+import welcomeScreen from "./screens/screen-main";
+import authorScreen from "./screens/screen-author";
+import genreScreen from "./screens/screen-genre";
+import resultsWin from "./screens/screen-result-win";
+import resultsTime from "./screens/screen-result-time";
+import resultsErrors from "./screens/screen-result-errors";
 
-const screensArray = [
-  screensTemplate.querySelector(`.main.main--welcome`),
-  screensTemplate.querySelector(`.main.main--level-artist`),
-  screensTemplate.querySelector(`.main.main--level-genre`),
-];
-const resultsScreensArr = Array.from(screensTemplate.querySelectorAll(`.main--result`));
-const allScreensArray = screensArray.concat(resultsScreensArr);
+const resultScreens = [resultsWin, resultsTime, resultsErrors];
 
-let screenIndex = 0;
+/**
+ * welcome -> author
+ */
+const playBtn = welcomeScreen.querySelector(`.main-play`);
+playBtn.addEventListener(`click`, function () {
+  switchScreen(authorScreen);
+});
 
-function switchScreen(index) {
-  const mainContent = appNode.querySelector(`.main`);
-  appNode.replaceChild(allScreensArray[index], mainContent);
-}
+/**
+ * author -> genre
+ */
+const answerAuthor = authorScreen.querySelector(`.main-list`);
+const answerBtn = genreScreen.querySelector(`.genre-answer-send`);
+answerAuthor.addEventListener(`change`, function () {
+  switchScreen(genreScreen);
+  answerAuthor.reset();
+  answerBtn.disabled = true;
+});
 
-function changeScreen(evt) {
-  if (evt.altKey) {
-    const mod = allScreensArray.length;
-    switch (evt.code) {
-      case `ArrowRight`:
-        evt.preventDefault();
-        screenIndex = (++screenIndex) % mod;
-        switchScreen(screenIndex);
-        break;
-      case `ArrowLeft`:
-        evt.preventDefault();
-        screenIndex = (--screenIndex + mod) % mod;
-        switchScreen(screenIndex);
-        break;
-    }
-  }
-}
 
-switchScreen(screenIndex);
+/**
+ * genre -> result
+ */
+const genreForm = genreScreen.querySelector(`.genre`);
+genreForm.addEventListener(`change`, function (e) {
+  let answers = e.currentTarget.querySelectorAll(`input:checked`).length;
+  answerBtn.disabled = answers === 0;
+});
 
-document.addEventListener(`keydown`, changeScreen);
+
+answerBtn.addEventListener(`click`, function () {
+  let index = Math.floor(Math.random() * resultScreens.length);
+  let resultScreen = resultScreens[index];
+  switchScreen(resultScreen);
+  genreForm.reset();
+  /**
+ * result -> welcome
+ */
+  let replayBtn = resultScreen.querySelector(`.main-replay`);
+  replayBtn.addEventListener(`click`, function () {
+    switchScreen(welcomeScreen);
+  });
+});
+
+switchScreen(welcomeScreen);
