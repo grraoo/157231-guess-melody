@@ -160,19 +160,19 @@ const answers9 = [{
 describe(`Array`, () => {
   describe(`count total()`, () => {
     it(`should return 10 points`, () => {
-      assert.equal(10, countPoints(answers));
+      assert.equal(10, countPoints(answers, 0));
     });
     it(`should return 20 points fastanswers`, () => {
-      assert.equal(20, countPoints(answersfast));
+      assert.equal(20, countPoints(answersfast, 0));
     });
     it(`should return 15 points answersHalfFast`, () => {
-      assert.equal(15, countPoints(answersHalfFast));
+      assert.equal(15, countPoints(answersHalfFast, 0));
     });
     it(`should have no more 3 errors`, () => {
-      assert.equal(-1, countPoints(answersFalse));
+      assert.equal(-1, countPoints(answersFalse, 3));
     });
     it(`should have 10 answers`, () => {
-      assert.equal(-1, countPoints(answers9));
+      assert.equal(-1, countPoints(answers9, 2));
     });
   });
 });
