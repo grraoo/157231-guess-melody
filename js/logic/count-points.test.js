@@ -1,161 +1,18 @@
 import {assert} from 'chai';
 import countPoints from './count-points';
 
-const answers = [{
-  success: true,
-  time: 30
-}, {
-  success: true,
-  time: 30
-}, {
-  success: true,
-  time: 30
-}, {
-  success: true,
-  time: 30
-}, {
-  success: true,
-  time: 30
-}, {
-  success: true,
-  time: 30
-}, {
-  success: true,
-  time: 30
-}, {
-  success: true,
-  time: 30
-}, {
-  success: true,
-  time: 30
-}, {
-  success: true,
-  time: 30
-}];
-const answersFalse = [{
-  success: false,
-  time: 30
-}, {
-  success: true,
-  time: 30
-}, {
-  success: false,
-  time: 30
-}, {
-  success: true,
-  time: 30
-}, {
-  success: false,
-  time: 30
-}, {
-  success: true,
-  time: 30
-}, {
-  success: true,
-  time: 30
-}, {
-  success: true,
-  time: 30
-}, {
-  success: true,
-  time: 30
-}, {
-  success: true,
-  time: 30
-}];
+const answers = new Array(10).fill({success: true, time: 30});
+const answersfast = new Array(10).fill({success: true, time: 25});
 
-const answersfast = [{
-  success: true,
-  time: 25
-}, {
-  success: true,
-  time: 25
-}, {
-  success: true,
-  time: 25
-}, {
-  success: true,
-  time: 25
-}, {
-  success: true,
-  time: 25
-}, {
-  success: true,
-  time: 25
-}, {
-  success: true,
-  time: 25
-}, {
-  success: true,
-  time: 25
-}, {
-  success: true,
-  time: 25
-}, {
-  success: true,
-  time: 25
-}];
-const answersHalfFast = [{
-  success: true,
-  time: 31
-}, {
-  success: true,
-  time: 25
-}, {
-  success: true,
-  time: 31
-}, {
-  success: true,
-  time: 25
-}, {
-  success: true,
-  time: 31
-}, {
-  success: true,
-  time: 25
-}, {
-  success: true,
-  time: 31
-}, {
-  success: true,
-  time: 25
-}, {
-  success: true,
-  time: 31
-}, {
-  success: true,
-  time: 25
-}];
+const answers7 = new Array(7).fill({success: true, time: 25});
+let answersFalse = new Array(3).fill({success: false, time: 25});
+answersFalse = answersFalse.concat(answers7);
 
+let answersHalfFast = new Array(5).fill({success: true, time: 25});
+const answersHalfSlow = new Array(5).fill({success: true, time: 31});
+answersHalfFast = answersHalfFast.concat(answersHalfSlow);
 
-const answers9 = [{
-  success: true,
-  time: 25
-}, {
-  success: true,
-  time: 25
-}, {
-  success: true,
-  time: 25
-}, {
-  success: true,
-  time: 25
-}, {
-  success: true,
-  time: 25
-}, {
-  success: true,
-  time: 25
-}, {
-  success: true,
-  time: 25
-}, {
-  success: true,
-  time: 25
-}, {
-  success: true,
-  time: 25
-}];
+const answers9 = new Array(9).fill({success: true, time: 31});
 
 describe(`Array`, () => {
   describe(`count total()`, () => {
