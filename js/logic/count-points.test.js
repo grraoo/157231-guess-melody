@@ -1,18 +1,21 @@
-import {assert} from 'chai';
+import {
+  assert
+} from 'chai';
 import countPoints from './count-points';
 
 const answers = new Array(10).fill({success: true, time: 30});
 const answersfast = new Array(10).fill({success: true, time: 25});
-
-const answers7 = new Array(7).fill({success: true, time: 25});
-let answersFalse = new Array(3).fill({success: false, time: 25});
-answersFalse = answersFalse.concat(answers7);
-
-let answersHalfFast = new Array(5).fill({success: true, time: 25});
-const answersHalfSlow = new Array(5).fill({success: true, time: 31});
-answersHalfFast = answersHalfFast.concat(answersHalfSlow);
-
 const answers9 = new Array(9).fill({success: true, time: 31});
+
+const answersFalse = [
+  ...new Array(7).fill({success: true, time: 25}),
+  ...new Array(3).fill({success: false, time: 25})
+];
+
+const answersHalfFast = [
+  ...new Array(5).fill({success: true, time: 25}),
+  ...new Array(5).fill({success: true, time: 31})
+];
 
 describe(`Array`, () => {
   describe(`count total()`, () => {
