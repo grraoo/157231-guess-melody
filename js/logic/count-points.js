@@ -6,20 +6,17 @@
 //   success: true,
 //   time: 25
 // };
-
-function countPoints(answers) {
-  if (answers.length < 10) {
+const MAX_ERRORS = 2;
+function countPoints(answers, errors) {
+  if (answers.length < 10 || errors > MAX_ERRORS) {
     return -1;
   }
 
-  let rightAnswers = answers.filter((answer) => answer.success);
+  const rightAnswers = answers.filter((answer) => answer.success);
 
-  if (rightAnswers.length < 8) {
-    return -1;
-  }
+  const fastAnswers = rightAnswers.filter((answer) => answer.time < 30).length;
+  const errorAnswers = errors * 2;
 
-  let fastAnswers = rightAnswers.filter((answer) => answer.time < 30).length;
-  let errorAnswers = (answers.length - rightAnswers.length) * 2;
   return rightAnswers.length + fastAnswers - errorAnswers;
 }
 
