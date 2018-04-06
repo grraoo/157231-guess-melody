@@ -1,7 +1,7 @@
 import {assert} from 'chai';
 import getResults from './getResults';
-let myresultsAll = [6, -1, 0, 5, 8, 5, 4, 7, 20];
-let myresultCurr = {
+const myresultsAll = [6, -1, 0, 5, 8, 5, 4, 7, 20];
+const myresultCurr = {
   points: 1,
   attempts: 1,
   timeLeft: 1,

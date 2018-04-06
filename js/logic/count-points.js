@@ -12,10 +12,10 @@ function countPoints(answers, errors) {
     return -1;
   }
 
-  let rightAnswers = answers.filter((answer) => answer.success);
+  const rightAnswers = answers.filter((answer) => answer.success);
 
-  let fastAnswers = rightAnswers.filter((answer) => answer.time < 30).length;
-  let errorAnswers = errors * 2;
+  const fastAnswers = rightAnswers.filter((answer) => answer.time < 30).length;
+  const errorAnswers = errors * 2;
 
   return rightAnswers.length + fastAnswers - errorAnswers;
 }

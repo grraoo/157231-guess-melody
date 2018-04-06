@@ -20,13 +20,12 @@ function getResults(all, current) {
     return `«У вас закончились все попытки. Ничего, повезёт в следующий раз!»`;
   }
 
-  let points = current.points;
-  let results = [...all, points].sort((a, b) => Math.sign(a - b));
-  let index = results.indexOf(points);
-  let place = results.length - index;
-  let percent = parseInt(((index / results.length) * 100), 10);
+  const points = current.points;
+  const results = [...all, points].sort((a, b) => Math.sign(a - b));
+  const index = results.indexOf(points);
+  const place = results.length - index;
+  const percent = parseInt(((index / results.length) * 100), 10);
   return `Вы заняли ${place} место из ${results.length} игроков. Это лучше, чем у ${percent}% игроков`;
 }
-
 
 export default getResults;
