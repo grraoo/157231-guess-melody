@@ -1,6 +1,6 @@
 const gameState = {
   answers: [],
-  notes: 3,
+  notes: 2,
   time: 300,
   screen: `welcome`
 };
