@@ -1,20 +1,11 @@
 import getElementFromTemplate from "../utils/getElementFromTemplate";
 import melodies from "../data/melodies";
 import gameState from "../logic/game";
-let errors = gameState.notes;
+import rnd from "../utils/rnd";
 
-const songs = [];
-let index = Math.floor(Math.random() * melodies.length);
-songs.push(melodies[index]);
-melodies.splice(index, 1);
-index = Math.floor(Math.random() * melodies.length);
-songs.push(melodies[index]);
-melodies.splice(index, 1);
-index = Math.floor(Math.random() * melodies.length);
-songs.push(melodies[index]);
-melodies.splice(index, 1);
+const songs = rnd.array(melodies, 3);
 
-let theSong = songs[Math.floor(Math.random() * songs.length)];
+const theSong = songs[rnd.number(songs.length)];
 
 const template =
 `<section class="main main--level main--level-artist">
@@ -31,7 +22,7 @@ const template =
   </div>
 </svg>
 <div class="main-mistakes">
-  ${new Array(errors).fill(`<img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">`).join(`\n\t`)}
+  ${new Array(gameState.notes).fill(`<img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">`).join(`\n\t`)}
 </div>
 
 <div class="main-wrap">
