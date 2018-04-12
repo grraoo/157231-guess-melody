@@ -2,7 +2,6 @@ import melodies from "../data/melodies";
 import rnd from "../utils/rnd";
 import header from "./header";
 
-
 const template = () => {
   const songs = rnd.array(melodies, 3);
   const theSong = songs[rnd.number(songs.length)];
@@ -36,6 +35,5 @@ const template = () => {
 </div>
 </section>`;
 };
-// const screen = getElementFromTemplate(template());
 
 export default template;

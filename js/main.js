@@ -18,6 +18,7 @@ const answerBtn = genreScreen.querySelector(`.genre-answer-send`);
 */
 const playBtn = welcomeScreen.querySelector(`.main-play`);
 playBtn.addEventListener(`click`, function () {
+  gameState.notes = 0;
   getNewAuthorScreen();
 });
 
@@ -30,9 +31,23 @@ const getNewAuthorScreen = () => {
    */
   const answerAuthor = screenF.querySelector(`.main-list`);
   answerAuthor.addEventListener(`change`, function () {
-    gameState.answerDone++;
-    gameState.answers.push({success: !!Math.round(Math.random() + 0.3), time: rnd.number(60)});
-    if (gameState.answerDone > 4) {
+    const answer = {success: !!Math.round(Math.random() - 0.2), time: rnd.number(60)};
+    gameState.answers.push(answer);
+    if (!answer.success) {
+      ++gameState.notes;
+      if (gameState.notes > 2) {
+        const index = rnd.number(resultScreens.length);
+        const resultScreen = resultScreens[index];
+        switchScreen(resultScreen);
+        const replayBtn = resultScreen.querySelector(`.main-replay`);
+        replayBtn.addEventListener(`click`, function () {
+          switchScreen(welcomeScreen);
+        });
+        return;
+      }
+    }
+
+    if (gameState.answers.length > 4) {
       switchScreen(genreScreen);
       answerAuthor.reset();
       answerBtn.disabled = true;
@@ -47,20 +62,20 @@ const getNewAuthorScreen = () => {
  */
 const genreForm = genreScreen.querySelector(`.genre`);
 genreForm.addEventListener(`change`, function (e) {
-  let answers = e.currentTarget.querySelectorAll(`input:checked`).length;
+  const answers = e.currentTarget.querySelectorAll(`input:checked`).length;
   answerBtn.disabled = answers === 0;
 });
 
 
 answerBtn.addEventListener(`click`, function () {
-  let index = Math.floor(Math.random() * resultScreens.length);
-  let resultScreen = resultScreens[index];
+  const index = rnd.number(resultScreens.length);
+  const resultScreen = resultScreens[index];
   switchScreen(resultScreen);
   genreForm.reset();
   /**
  * result -> welcome
  */
-  let replayBtn = resultScreen.querySelector(`.main-replay`);
+  const replayBtn = resultScreen.querySelector(`.main-replay`);
   replayBtn.addEventListener(`click`, function () {
     switchScreen(welcomeScreen);
   });
