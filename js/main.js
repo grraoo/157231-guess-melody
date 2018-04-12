@@ -63,6 +63,21 @@ const getNewAuthorScreen = () => {
 const genreForm = genreScreen.querySelector(`.genre`);
 genreForm.addEventListener(`change`, function (e) {
   const answers = e.currentTarget.querySelectorAll(`input:checked`).length;
+  const answer = {success: !!Math.round(Math.random() - 0.2), time: rnd.number(60)};
+  gameState.answers.push(answer);
+  if (!answer.success) {
+    ++gameState.notes;
+    if (gameState.notes > 2) {
+      const index = rnd.number(resultScreens.length);
+      const resultScreen = resultScreens[index];
+      switchScreen(resultScreen);
+      const replayBtn = resultScreen.querySelector(`.main-replay`);
+      replayBtn.addEventListener(`click`, function () {
+        switchScreen(welcomeScreen);
+      });
+      return;
+    }
+  }
   answerBtn.disabled = answers === 0;
 });
 
