@@ -2,7 +2,8 @@ const initialState = {
   answers: [],
   notes: 1,
   time: 300,
-  screen: `welcome`
+  screen: `welcome`,
+  answerDone: 0
 };
 
 const gameState = Object.assign(initialState);

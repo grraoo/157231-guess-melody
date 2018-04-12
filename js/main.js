@@ -1,3 +1,4 @@
+import rnd from "./utils/rnd";
 import switchScreen from "./utils/switch-screen";
 import welcomeScreen from "./screens/screen-main";
 import authorScreen from "./screens/screen-author";
@@ -5,6 +6,7 @@ import genreScreen from "./screens/screen-genre";
 import resultsWin from "./screens/screen-result-win";
 import resultsTime from "./screens/screen-result-time";
 import resultsErrors from "./screens/screen-result-errors";
+import gameState from "./logic/game";
 
 const resultScreens = [resultsWin, resultsTime, resultsErrors];
 
@@ -22,11 +24,16 @@ playBtn.addEventListener(`click`, function () {
 const answerAuthor = authorScreen.querySelector(`.main-list`);
 const answerBtn = genreScreen.querySelector(`.genre-answer-send`);
 answerAuthor.addEventListener(`change`, function () {
-  switchScreen(genreScreen);
-  answerAuthor.reset();
-  answerBtn.disabled = true;
+  gameState.answerDone++;
+  gameState.answers.push({success: !!Math.round(Math.random() + 0.3), time: rnd.number(60)});
+  if (gameState.answerDone > 4) {
+    switchScreen(genreScreen);
+    answerAuthor.reset();
+    answerBtn.disabled = true;
+  } else {
+    switchScreen(authorScreen);
+  }
 });
-
 
 /**
  * genre -> result
