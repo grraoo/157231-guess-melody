@@ -15,6 +15,6 @@ const getRandomArray = (array, length) => {
 };
 
 export default {
-  number: getRandomNumber,
-  array: getRandomArray
+  getInteger: getRandomNumber,
+  getArray: getRandomArray
 };

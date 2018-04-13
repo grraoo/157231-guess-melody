@@ -1,11 +1,11 @@
 import melodies from "../data/melodies";
-import rnd from "../utils/rnd";
+import Random from "../utils/rnd";
 import header from "./header";
 import timer from "./timer";
 
 const template = () => {
-  const songs = rnd.array(melodies, 3);
-  const theSong = songs[rnd.number(songs.length)];
+  const songs = Random.getArray(melodies, 3);
+  const theSong = songs[Random.getInteger(songs.length)];
 
   return `<section class="main main--level main--level-artist">
   <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">

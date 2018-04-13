@@ -1,6 +1,6 @@
 const initialState = {
   answers: [],
-  notes: 1,
+  notes: 3,
   time: 300,
   screen: `welcome`,
   results: [0, 10, 20, 12, 16, 14, 15, 8, 5]

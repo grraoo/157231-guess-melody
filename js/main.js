@@ -1,4 +1,4 @@
-import rnd from "./utils/rnd";
+import Random from "./utils/rnd";
 import switchScreen from "./utils/switch-screen";
 import gameState from "./logic/game";
 import getElementFromTemplate from "./utils/getElementFromTemplate";
@@ -14,13 +14,13 @@ const generateResultScreen = () => getElementFromTemplate(resultScreenTemplate()
 const doAnswer = function (maxAnsewrs, more, next) {
   const answer = {
     success: !!Math.round(Math.random() + 0.3),
-    time: rnd.number(45)
+    time: Random.getInteger(45)
   };
   gameState.time -= answer.time;
   gameState.answers.push(answer);
   if (!answer.success) {
-    ++gameState.notes;
-    if (gameState.notes > 2) {
+    --gameState.notes;
+    if (gameState.notes < 1) {
       getNewResultScreen();
       return;
     }
@@ -44,7 +44,7 @@ const getNewResultScreen = () => {
   const replayBtn = resultsScreen.querySelector(`.main-replay`);
   replayBtn.addEventListener(`click`, function () {
     gameState.answers.length = 0;
-    gameState.notes = 0;
+    gameState.notes = 3;
     gameState.time = 300;
     switchScreen(welcomeScreen);
   });
