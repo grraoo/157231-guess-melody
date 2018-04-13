@@ -88,6 +88,8 @@ const getNewGenreScreen = () => {
         const replayBtn = resultScreen.querySelector(`.main-replay`);
         replayBtn.addEventListener(`click`, function () {
           switchScreen(welcomeScreen);
+          gameState.answers.length = 0;
+          gameState.notes = 0;
         });
         return;
       }

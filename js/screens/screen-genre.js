@@ -27,7 +27,7 @@ const template = () => {
         </div>`;
   }).join(`\
   n\ t `)};
-        <button class="genre-answer-send" type="submit">Ответить</button>
+        <button class="genre-answer-send" type="submit" disabled>Ответить</button>
       </form>
     </div>
   </section>`;
