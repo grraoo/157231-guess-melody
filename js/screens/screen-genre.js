@@ -1,13 +1,12 @@
-import getElementFromTemplate from "../utils/getElementFromTemplate";
 import header from "./header";
 import melodies from "../data/melodies";
 import rnd from "../utils/rnd";
 
-const songs = rnd.array(melodies, 4);
-const theSong = songs[rnd.number(songs.length)];
+const template = () => {
+  const songs = rnd.array(melodies, 4);
+  const theSong = songs[rnd.number(songs.length)];
 
-const template =
-  `<section class="main main--level main--level-genre">
+  return `<section class="main main--level main--level-genre">
   ${header()}
     <div class="main-wrap">
       <h2 class="title">Выберите ${theSong.genre} треки</h2>
@@ -26,11 +25,12 @@ const template =
           <input type="checkbox" name="answer" value="answer-${number}" id="a-${number}">
           <label class="genre-answer-check" for="a-${number}"></label>
         </div>`;
-  }).join(`\n\t`)};
+  }).join(`\
+  n\ t `)};
         <button class="genre-answer-send" type="submit">Ответить</button>
       </form>
     </div>
   </section>`;
-const screen = getElementFromTemplate(template);
+};
 
-export default screen;
+export default template;
