@@ -1,55 +1,76 @@
+import Random from "./utils/rnd";
 import switchScreen from "./utils/switch-screen";
+import gameState from "./logic/game";
+import getElementFromTemplate from "./utils/getElementFromTemplate";
 import welcomeScreen from "./screens/screen-main";
-import authorScreen from "./screens/screen-author";
-import genreScreen from "./screens/screen-genre";
-import resultsWin from "./screens/screen-result-win";
-import resultsTime from "./screens/screen-result-time";
-import resultsErrors from "./screens/screen-result-errors";
+import authorScreenTemplate from "./screens/screen-author";
+import genreScreenTemplate from "./screens/screen-genre";
+import resultScreenTemplate from "./screens/screen-result";
 
-const resultScreens = [resultsWin, resultsTime, resultsErrors];
+const generateAuthorScreen = () => getElementFromTemplate(authorScreenTemplate());
+const generateGenreScreen = () => getElementFromTemplate(genreScreenTemplate());
+const generateResultScreen = () => getElementFromTemplate(resultScreenTemplate());
 
-/**
- * welcome -> author
- */
+const doAnswer = function (maxAnsewrs, more, next) {
+  const answer = {
+    success: !!Math.round(Math.random() + 0.3),
+    time: Random.getInteger(45)
+  };
+  gameState.time -= answer.time;
+  gameState.answers.push(answer);
+  if (!answer.success) {
+    --gameState.notes;
+    if (gameState.notes < 1) {
+      getNewResultScreen();
+      return;
+    }
+  }
+
+  if (gameState.answers.length > maxAnsewrs) {
+    next();
+  } else {
+    more();
+  }
+};
+
 const playBtn = welcomeScreen.querySelector(`.main-play`);
 playBtn.addEventListener(`click`, function () {
-  switchScreen(authorScreen);
+  getNewAuthorScreen();
 });
 
-/**
- * author -> genre
- */
-const answerAuthor = authorScreen.querySelector(`.main-list`);
-const answerBtn = genreScreen.querySelector(`.genre-answer-send`);
-answerAuthor.addEventListener(`change`, function () {
-  switchScreen(genreScreen);
-  answerAuthor.reset();
-  answerBtn.disabled = true;
-});
-
-
-/**
- * genre -> result
- */
-const genreForm = genreScreen.querySelector(`.genre`);
-genreForm.addEventListener(`change`, function (e) {
-  let answers = e.currentTarget.querySelectorAll(`input:checked`).length;
-  answerBtn.disabled = answers === 0;
-});
-
-
-answerBtn.addEventListener(`click`, function () {
-  let index = Math.floor(Math.random() * resultScreens.length);
-  let resultScreen = resultScreens[index];
-  switchScreen(resultScreen);
-  genreForm.reset();
-  /**
- * result -> welcome
- */
-  let replayBtn = resultScreen.querySelector(`.main-replay`);
+const getNewResultScreen = () => {
+  const resultsScreen = generateResultScreen();
+  switchScreen(resultsScreen);
+  const replayBtn = resultsScreen.querySelector(`.main-replay`);
   replayBtn.addEventListener(`click`, function () {
+    gameState.answers.length = 0;
+    gameState.notes = 3;
+    gameState.time = 300;
     switchScreen(welcomeScreen);
   });
-});
+};
+
+const getNewAuthorScreen = () => {
+  const authorScreen = generateAuthorScreen();
+  switchScreen(authorScreen);
+
+  const answerAuthor = authorScreen.querySelector(`.main-list`);
+  const doAuthorAnswer = () => doAnswer(4, getNewAuthorScreen, getNewGenreScreen);
+  answerAuthor.addEventListener(`change`, doAuthorAnswer);
+};
+
+const getNewGenreScreen = () => {
+  const genreScreen = generateGenreScreen();
+  const answerBtn = genreScreen.querySelector(`.genre-answer-send`);
+  const genreForm = genreScreen.querySelector(`.genre`);
+  switchScreen(genreScreen);
+  genreForm.addEventListener(`change`, function (e) {
+    const answers = e.currentTarget.querySelectorAll(`input:checked`).length;
+    answerBtn.disabled = answers === 0;
+  });
+
+  const doGenrerAnswer = () => doAnswer(9, getNewGenreScreen, getNewResultScreen);
+  answerBtn.addEventListener(`click`, doGenrerAnswer);
+};
 
 switchScreen(welcomeScreen);
