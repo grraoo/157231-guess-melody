@@ -1,12 +1,20 @@
 import melodies from "../data/melodies";
 import rnd from "../utils/rnd";
 import header from "./header";
+import timer from "./timer";
 
 const template = () => {
   const songs = rnd.array(melodies, 3);
   const theSong = songs[rnd.number(songs.length)];
 
   return `<section class="main main--level main--level-artist">
+  <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
+  <circle
+    cx="390" cy="390" r="370"
+    class="timer-line"
+    style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
+  </svg>
+  ${timer()}
   ${header()}
 <div class="main-wrap">
   <h2 class="title main-title">Кто исполняет эту песню?</h2>
