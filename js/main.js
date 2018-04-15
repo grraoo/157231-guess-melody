@@ -43,9 +43,7 @@ const getNewResultScreen = () => {
   switchScreen(resultsScreen);
   const replayBtn = resultsScreen.querySelector(`.main-replay`);
   replayBtn.addEventListener(`click`, function () {
-    gameState.answers.length = 0;
-    gameState.notes = 3;
-    gameState.time = 300;
+    gameState.reset();
     switchScreen(welcomeScreen);
   });
 };

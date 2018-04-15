@@ -1,11 +1,24 @@
 const initialState = {
-  answers: [],
   notes: 3,
   time: 300,
   screen: `welcome`,
-  results: [0, 10, 20, 12, 16, 14, 15, 8, 5]
 };
 
-const gameState = Object.assign(initialState);
+class GameState {
+  constructor(state) {
+    this.answers = [];
+    this.notes = state.notes;
+    this.time = state.time;
+    this.screen = state.screen;
+    this.initialState = state;
+    this.results = [0, 10, 20, 12, 16, 14, 15, 8, 5];
+  }
+  reset() {
+    this.answers.length = 0;
+    this.notes = this.initialState.notes;
+    this.time = this.initialState.time;
+    this.screen = this.initialState.screen;
+  }
+}
 
-export default gameState;
+export default new GameState(initialState);
