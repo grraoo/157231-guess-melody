@@ -1,7 +1,11 @@
+import header from "./header";
 import melodies from "../data/melodies";
 import Random from "../utils/rnd";
-import header from "./header";
 import timer from "./timer";
+import getElementFromTemplate from "../utils/getElementFromTemplate";
+import switchScreen from "../utils/switch-screen";
+import doAnswer from "../logic/doAnswer";
+import getNewGenreScreen from "../screens/screen-genre";
 
 const template = () => {
   const songs = Random.getArray(melodies, 3);
@@ -44,4 +48,14 @@ const template = () => {
 </section>`;
 };
 
-export default template;
+const generateAuthorScreen = () => getElementFromTemplate(template());
+const getNewAuthorScreen = () => {
+  const authorScreen = generateAuthorScreen();
+  switchScreen(authorScreen);
+
+  const answerAuthor = authorScreen.querySelector(`.main-list`);
+  const doAuthorAnswer = () => doAnswer(4, getNewAuthorScreen, getNewGenreScreen);
+  answerAuthor.addEventListener(`change`, doAuthorAnswer);
+};
+
+export default getNewAuthorScreen;

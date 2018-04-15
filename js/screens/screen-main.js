@@ -1,4 +1,5 @@
 import getElementFromTemplate from "../utils/getElementFromTemplate";
+import getNewAuthorScreen from "./screen-author";
 
 const template =
 `<section class="main main--welcome">
@@ -12,5 +13,8 @@ const template =
 </p>
 </section>`;
 const screen = getElementFromTemplate(template);
-
+const playBtn = screen.querySelector(`.main-play`);
+playBtn.addEventListener(`click`, function () {
+  getNewAuthorScreen();
+});
 export default screen;

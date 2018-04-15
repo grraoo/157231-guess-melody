@@ -2,6 +2,9 @@ import countPoints from "../logic/count-points";
 import getResults from "../logic/getResults";
 import gameState from "../logic/game";
 import declOfNums from "../utils/declOfNum";
+import welcomeScreen from "../screens/screen-main";
+import getElementFromTemplate from "../utils/getElementFromTemplate";
+import switchScreen from "../utils/switch-screen";
 
 const getTemplateErrors = () => {
   return `<section class="main main--result">
@@ -63,4 +66,16 @@ const template = () => {
   }
 };
 
-export default template;
+const generateResultScreen = () => getElementFromTemplate(template());
+
+const getNewResultScreen = () => {
+  const resultsScreen = generateResultScreen();
+  switchScreen(resultsScreen);
+  const replayBtn = resultsScreen.querySelector(`.main-replay`);
+  replayBtn.addEventListener(`click`, function () {
+    gameState.reset();
+    switchScreen(welcomeScreen);
+  });
+};
+
+export default getNewResultScreen;

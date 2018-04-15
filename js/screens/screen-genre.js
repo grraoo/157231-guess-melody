@@ -2,6 +2,10 @@ import header from "./header";
 import melodies from "../data/melodies";
 import Random from "../utils/rnd";
 import timer from "./timer";
+import getElementFromTemplate from "../utils/getElementFromTemplate";
+import switchScreen from "../utils/switch-screen";
+import doAnswer from "../logic/doAnswer";
+import getNewResultScreen from "../screens/screen-result";
 
 const template = () => {
   const songs = Random.getArray(melodies, 4);
@@ -39,5 +43,18 @@ const template = () => {
     </div>
   </section>`;
 };
+const generateGenreScreen = () => getElementFromTemplate(template());
+const getNewGenreScreen = () => {
+  const genreScreen = generateGenreScreen();
+  const answerBtn = genreScreen.querySelector(`.genre-answer-send`);
+  const genreForm = genreScreen.querySelector(`.genre`);
+  switchScreen(genreScreen);
+  genreForm.addEventListener(`change`, function (e) {
+    const answers = e.currentTarget.querySelectorAll(`input:checked`).length;
+    answerBtn.disabled = answers === 0;
+  });
 
-export default template;
+  const doGenrerAnswer = () => doAnswer(9, getNewGenreScreen, getNewResultScreen);
+  answerBtn.addEventListener(`click`, doGenrerAnswer);
+};
+export default getNewGenreScreen;
