@@ -1,4 +1,5 @@
-import header from "./header";
+// import header from "./header";
+import Mistakes from "./mistakesView";
 import melodies from "../data/melodies";
 import Random from "../utils/rnd";
 import timer from "./timer";
@@ -6,6 +7,8 @@ import getElementFromTemplate from "../utils/getElementFromTemplate";
 import switchScreen from "../utils/switch-screen";
 import doAnswer from "../logic/doAnswer";
 import getNewGenreScreen from "../screens/screen-genre";
+// import gameState from "../logic/game";
+
 
 const template = () => {
   const songs = Random.getArray(melodies, 3);
@@ -19,7 +22,7 @@ const template = () => {
     style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
   </svg>
   ${timer()}
-  ${header()}
+  ${Mistakes.template}
 <div class="main-wrap">
   <h2 class="title main-title">Кто исполняет эту песню?</h2>
   <div class="player-wrapper">
