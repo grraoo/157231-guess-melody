@@ -10,7 +10,7 @@ const mistakesView = new Mistakes(gameState);
 const template = (question) => {
   const songs = question.melodies;
   const theSong = question.theSong;
-
+  // console.log(theSong.artist);
   return `<section class="main main--level main--level-artist">
   <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
   <circle
@@ -34,7 +34,7 @@ const template = (question) => {
   <form class="main-list">
   ${songs.map((song, number) => {
     return `<div class="main-answer-wrapper">
-      <input class="main-answer-r" type="radio" id="answer-${number}" name="answer" value="val-${number}"/>
+      <input class="main-answer-r" type="radio" id="answer-${number}" name="answer" value="${song.name}"/>
       <label class="main-answer" for="answer-${number}">
         <img class="main-answer-preview" src="${song.image}"
              alt="${song.artist}" width="134" height="134">
@@ -54,7 +54,11 @@ const getNewAuthorScreen = (question) => {
   switchScreen(authorScreen);
 
   const answerAuthor = authorScreen.querySelector(`.main-list`);
-  const doAuthorAnswer = () => doAnswer({success: !!Math.round(Math.random() + 0.3), time: rnd.getInteger(45)});
+  const doAuthorAnswer = (e) => {
+    question.answer = new Set(question.melodies.filter((song) => song.name === e.target.value));
+    const answer = {success: question.isRightAnswer(), time: rnd.getInteger(45)};
+    doAnswer(answer);
+  };
   answerAuthor.addEventListener(`change`, doAuthorAnswer);
 };
 
