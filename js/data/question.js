@@ -31,13 +31,11 @@ class Question {
     return this._answer;
   }
   isRightAnswer() {
-    let isRight = false;
     if (this.answer.size !== this.rightAnswer.size) {
       return false;
     }
-    this.answer.forEach((element) => {
-      isRight = this.rightAnswer.has(element);
-      return isRight;
+    let isRight = [...this.answer].every((element) => {
+      return this.rightAnswer.has(element);
     });
     return isRight;
   }
