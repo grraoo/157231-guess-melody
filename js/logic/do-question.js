@@ -1,17 +1,19 @@
-import getNewAuthorScreen from "../screens/screen-author";
-import getNewGenreScreen from "../screens/screen-genre";
+import AuthorScreen from "../screens/screen-author";
+import GenreScreen from "../screens/screen-genre";
 import game from "./game";
 import getNewResultScreen from "../screens/screen-result";
-
+import switchScreen from "../utils/switch-screen";
 
 export default (question) => {
   if (question) {
     switch (question.type) {
       case game.TYPES.AUTHOR:
-        getNewAuthorScreen(question);
+        const screenAuthor = new AuthorScreen(question);
+        switchScreen(screenAuthor.element);
         break;
       case game.TYPES.GENRE:
-        getNewGenreScreen(question);
+        const screenGenre = new GenreScreen(question);
+        switchScreen(screenGenre.element);
         break;
       default:
         throw new Error(`WAT?! Unknown type ${question.type}`);

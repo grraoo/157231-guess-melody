@@ -23,7 +23,8 @@ class AbstractView {
     return getElementFromTemplate(this.template);
   }
 
-  bind() {
+  bind(element) {
+    return element;
     // event hadlers if needed
   }
 }
