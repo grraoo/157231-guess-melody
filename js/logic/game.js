@@ -1,11 +1,10 @@
-import questions from "../data/question";
+import Questions from "../data/question";
 
 const initialState = {
   notes: 3,
   time: 300,
   screen: `welcome`,
   results: [0, 10, 20, 12, 16, 14, 15, 7, 5],
-  questionsArr: questions
 };
 
 class GameState {
@@ -16,22 +15,27 @@ class GameState {
     this.time = state.time;
     this.screen = state.screen;
     this.results = state.results;
-    this._questions = state.questionsArr;
+    this._questions = new Questions();
+
+    this.TYPES = {
+      AUTHOR: `AUTHOR`,
+      GENRE: `GENRE`
+    };
   }
   reset() {
     this.answers.length = 0;
     this.notes = this.initialState.notes;
     this.time = this.initialState.time;
     this.screen = this.initialState.screen;
-    this._questions = this.initialState.questionsArr;
+    this._questions = new Questions();
   }
 
   get question() {
-    return this.questions.next();
+    return (this.time <= 0 || this.notes <= 0) ? null : this.questions.next();
   }
 
   get questions() {
-    return (this.time <= 0 || this.notes <= 0) ? null : this._questions;
+    return this._questions;
   }
 }
 

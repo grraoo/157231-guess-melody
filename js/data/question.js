@@ -43,19 +43,21 @@ class Question {
   }
 }
 
-const questions = [];
-let i = 0;
-while (i < 10) {
-  questions[i++] = new Question(songs);
-}
-const questionsQueue = {
-  items: questions,
+class QuestionsQueue {
+  constructor() {
+    const questions = [];
+    let i = 0;
+    while (i < 10) {
+      questions[i++] = new Question(songs);
+    }
+    this.items = questions;
+  }
   next() {
     if (this.items.length) {
       return this.items.shift();
     }
     return null;
   }
-};
+}
 
-export default questionsQueue;
+export default QuestionsQueue;

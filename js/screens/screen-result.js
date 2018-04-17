@@ -31,7 +31,7 @@ const getTemplateWin = () => {
   const points = countPoints(gameState.answers, errors);
   gameState.results.push(points);
   const rightAnswers = gameState.answers.filter((answer) => answer.success);
-  const fastAnswers = rightAnswers.filter((answer) => answer.time < 30).length;
+  const fastAnswers = rightAnswers.filter((answer) => answer.time < 30).length || 0;
   const time = 300 - gameState.time;
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
@@ -57,9 +57,9 @@ const getTemplateWin = () => {
 };
 
 const template = () => {
-  if (gameState.notes < 1) {
+  if (gameState.notes <= 0) {
     return getTemplateErrors();
-  } else if (gameState.time < 1) {
+  } else if (gameState.time <= 0) {
     return getTemplateNoTime();
   } else {
     return getTemplateWin();

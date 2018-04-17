@@ -1,18 +1,15 @@
-// import header from "./header";
 import Mistakes from "./mistakesView";
-import melodies from "../data/melodies";
-import Random from "../utils/rnd";
 import timer from "./timer";
 import getElementFromTemplate from "../utils/getElementFromTemplate";
 import switchScreen from "../utils/switch-screen";
 import doAnswer from "../logic/doAnswer";
-import getNewGenreScreen from "../screens/screen-genre";
 import gameState from "../logic/game";
+import rnd from "../utils/rnd";
 
 const mistakesView = new Mistakes(gameState);
-const template = () => {
-  const songs = Random.getArray(melodies, 3);
-  const theSong = songs[Random.getInteger(songs.length)];
+const template = (question) => {
+  const songs = question.melodies;
+  const theSong = question.theSong;
 
   return `<section class="main main--level main--level-artist">
   <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
@@ -51,13 +48,13 @@ const template = () => {
 </section>`;
 };
 
-const generateAuthorScreen = () => getElementFromTemplate(template());
-const getNewAuthorScreen = () => {
-  const authorScreen = generateAuthorScreen();
+const generateAuthorScreen = (question) => getElementFromTemplate(template(question));
+const getNewAuthorScreen = (question) => {
+  const authorScreen = generateAuthorScreen(question);
   switchScreen(authorScreen);
 
   const answerAuthor = authorScreen.querySelector(`.main-list`);
-  const doAuthorAnswer = () => doAnswer(4, getNewAuthorScreen, getNewGenreScreen);
+  const doAuthorAnswer = () => doAnswer({success: !!Math.round(Math.random() + 0.3), time: rnd.getInteger(45)});
   answerAuthor.addEventListener(`change`, doAuthorAnswer);
 };
 

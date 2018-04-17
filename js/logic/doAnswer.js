@@ -1,25 +1,16 @@
-import Random from "../utils/rnd";
-import gameState from "./game";
+import game from "./game";
 import getNewResultScreen from "../screens/screen-result";
+import doQuestion from "./do-question";
 
-export default function (maxAnsewrs, more, next) {
-  const answer = {
-    success: !!Math.round(Math.random() + 0.3),
-    time: Random.getInteger(45)
-  };
-  gameState.time -= answer.time;
-  gameState.answers.push(answer);
+export default function (answer) {
+  game.time -= answer.time;
+  game.answers.push(answer);
   if (!answer.success) {
-    --gameState.notes;
-    if (gameState.notes < 1) {
-      getNewResultScreen();
-      return;
-    }
+    --game.notes;
   }
-
-  if (gameState.answers.length > maxAnsewrs) {
-    next();
-  } else {
-    more();
+  if (!game.questions.items.length || game.notes <= 0) {
+    getNewResultScreen();
+    return;
   }
+  doQuestion(game.questions.next());
 }
