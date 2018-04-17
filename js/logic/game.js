@@ -5,13 +5,13 @@ const initialState = {
 };
 
 class GameState {
-  constructor(state) {
+  constructor(state, results = [0, 10, 20, 12, 16, 14, 15, 8, 5]) {
     this.answers = [];
     this.notes = state.notes;
     this.time = state.time;
     this.screen = state.screen;
     this.initialState = state;
-    this.results = [0, 10, 20, 12, 16, 14, 15, 8, 5];
+    this.results = results;
   }
   reset() {
     this.answers.length = 0;
