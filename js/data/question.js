@@ -48,5 +48,14 @@ let i = 0;
 while (i < 10) {
   questions[i++] = new Question(songs);
 }
+const questionsQueue = {
+  items: questions,
+  next() {
+    if (this.items.length) {
+      return this.items.shift();
+    }
+    return null;
+  }
+};
 
-export default questions;
+export default questionsQueue;
