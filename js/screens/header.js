@@ -1,9 +1,9 @@
-import gameState from "../logic/game";
+import game from "../logic/game";
 
 const template = () => {
   return `
 <div class="main-mistakes">
-  ${new Array(gameState.notes).fill(`<img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">`).join(`\n\t`)}
+  ${new Array(game.notes).fill(`<img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">`).join(`\n\t`)}
 </div>`;
 };
 

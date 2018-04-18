@@ -1,10 +1,10 @@
+import App from "../logic/app";
+import AbstractView from "./AbstractView";
+import game from "../logic/game";
 import countPoints from "../logic/count-points";
 import getResults from "../logic/getResults";
-import gameState from "../logic/game";
-import declOfNums from "../utils/declOfNum";
 import welcomeScreen from "../screens/screen-main";
-import getElementFromTemplate from "../utils/getElementFromTemplate";
-import switchScreen from "../utils/switch-screen";
+import declOfNums from "../utils/declOfNum";
 
 const getTemplateErrors = () => {
   return `<section class="main main--result">
@@ -27,12 +27,12 @@ const getTemplateNoTime = () => {
 };
 
 const getTemplateWin = () => {
-  const errors = 3 - gameState.notes;
-  const points = countPoints(gameState.answers, errors);
-  gameState.results.push(points);
-  const rightAnswers = gameState.answers.filter((answer) => answer.success);
+  const errors = 3 - game.notes;
+  const points = countPoints(game.answers, errors);
+  game.results.push(points);
+  const rightAnswers = game.answers.filter((answer) => answer.success);
   const fastAnswers = rightAnswers.filter((answer) => answer.time < 30).length || 0;
-  const time = 300 - gameState.time;
+  const time = 300 - game.time;
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
   const words = {
@@ -51,31 +51,30 @@ const getTemplateWin = () => {
   <div class="main-stat">За&nbsp;${minutes ? `${minutes}&nbsp;${declOfNums(minutes, words.mins)} и ` : ``} ${seconds}&nbsp;${declOfNums(seconds, words.secs)}
     <br>вы&nbsp;набрали ${points} ${declOfNums(points, words.points)} (${fastAnswers} ${declOfNums(fastAnswers, words.fast)})
     <br>совершив ${errors} ${declOfNums(errors, words.errs)}</div>
-  <span class="main-comparison">${getResults(gameState.results, {"points": points, "attempts": gameState.notes, "timeLeft": 45})}</span>
+  <span class="main-comparison">${getResults(game.results, {"points": points, "attempts": game.notes, "timeLeft": 45})}</span>
   <span role="button" tabindex="0" class="main-replay">Сыграть ещё раз</span>
 </section>`;
 };
 
-const template = () => {
-  if (gameState.notes <= 0) {
-    return getTemplateErrors();
-  } else if (gameState.time <= 0) {
-    return getTemplateNoTime();
-  } else {
-    return getTemplateWin();
+class ResultScreen extends AbstractView {
+
+  get template() {
+    if (game.notes <= 0) {
+      return getTemplateErrors();
+    } else if (game.time <= 0) {
+      return getTemplateNoTime();
+    } else {
+      return getTemplateWin();
+    }
   }
-};
 
-const generateResultScreen = () => getElementFromTemplate(template());
+  bind(element) {
+    const replayBtn = element.querySelector(`.main-replay`);
+    replayBtn.addEventListener(`click`, function () {
+      game.reset();
+      App.showScreen(welcomeScreen);
+    });
+  }
+}
 
-const getNewResultScreen = () => {
-  const resultsScreen = generateResultScreen();
-  switchScreen(resultsScreen);
-  const replayBtn = resultsScreen.querySelector(`.main-replay`);
-  replayBtn.addEventListener(`click`, function () {
-    gameState.reset();
-    switchScreen(welcomeScreen);
-  });
-};
-
-export default getNewResultScreen;
+export default ResultScreen;

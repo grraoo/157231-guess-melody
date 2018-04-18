@@ -5,7 +5,7 @@ class GenreScreen extends QuestionScreen {
     const {melodies: songs, theSong} = this.question;
 
     // uncomment to see answers in console
-    // console.log(`genre`);
+    // console.clear();
     // [...this.question.melodies].forEach((song, index) => {
     //   if (theSong.genre === song.genre) {
     //     console.log(index);

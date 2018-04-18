@@ -1,5 +1,3 @@
-import getElementFromTemplate from "../utils/getElementFromTemplate";
-
 class AbstractView {
   constructor() {
     if (new.target === AbstractView) {
@@ -20,7 +18,9 @@ class AbstractView {
     return this._element;
   }
   render() {
-    return getElementFromTemplate(this.template);
+    const element = document.createElement(`div`);
+    element.innerHTML = this.template;
+    return element.firstChild;
   }
 
   bind() {
