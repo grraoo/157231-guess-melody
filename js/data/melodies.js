@@ -11,18 +11,18 @@ export default [
     name: `In the Land of Rhinoplasty`,
     image: `https://i.vimeocdn.com/portrait/992615_300x300`,
     src: `https://www.youtube.com/audiolibrary_download?vid=dc3b4dc549becd6b`,
-    genre: `Rock`
+    genre: `Jazz`
   },
   {
     artist: `Audionautix`,
     name: `Travel Light`,
     image: `http://4.bp.blogspot.com/-kft9qu5ET6U/VPFUBi9W-MI/AAAAAAAACYM/UxXilXKYwOc/s1600/audionautix%2BHalf%2BSize.jpg`,
     src: `https://www.youtube.com/audiolibrary_download?vid=a127d9b7de8a17cf`,
-    genre: `Country`
+    genre: `Jazz`
   },
   {
     artist: `Riot`,
-    name: `	Level Plane`,
+    name: `Level Plane`,
     image: `https://i.ytimg.com/vi/jzgM3m8Vp1k/maxresdefault.jpg`,
     src: `https://www.youtube.com/audiolibrary_download?vid=dfb828f40096184c`,
     genre: `R&B`
@@ -39,6 +39,6 @@ export default [
     name: `Home Stretch`,
     image: `https://f4.bcbits.com/img/0004181452_10.jpg`,
     src: `https://www.youtube.com/audiolibrary_download?vid=bcbe5be936a32fb1`,
-    genre: `Electronic`
+    genre: `Pop`
   }
 ];

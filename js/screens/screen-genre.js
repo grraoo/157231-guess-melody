@@ -1,43 +1,55 @@
-import header from "./header";
-import melodies from "../data/melodies";
-import Random from "../utils/rnd";
-import timer from "./timer";
+import QuestionScreen from "./question-screen";
 
-const template = () => {
-  const songs = Random.getArray(melodies, 4);
-  const theSong = songs[Random.getInteger(songs.length)];
+class GenreScreen extends QuestionScreen {
+  get template() {
+    const {melodies: songs, theSong} = this.question;
 
-  return `<section class="main main--level main--level-genre">
-  <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
-  <circle
-    cx="390" cy="390" r="370"
-    class="timer-line"
-    style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
-  </svg>
-  ${timer()}
-  ${header()}
-    <div class="main-wrap">
-      <h2 class="title">Выберите ${theSong.genre} треки</h2>
-      <form class="genre">
-      ${songs.map((song, number) => {
-    return ` <div class="genre-answer">
-          <div class="player-wrapper">
-            <div class="player">
-              <audio src="${song.src}"></audio>
-              <button class="player-control player-control--pause"></button>
-              <div class="player-track">
-                <span class="player-status"></span>
-              </div>
-            </div>
+    // uncomment to see answers in console
+    // console.log(`genre`);
+    // [...this.question.melodies].forEach((song, index) => {
+    //   if (theSong.genre === song.genre) {
+    //     console.log(index);
+    //   }
+    // });
+    return `<section class="main main--level main--level-genre">
+      ${this.header()}
+      <div class="main-wrap">
+        <h2 class="title">Выберите ${theSong.genre} треки</h2>
+        <form class="genre">
+          ${songs.map((song) => {
+    return `<div class="genre-answer">
+      <div class="player-wrapper">
+        <div class="player">
+          <audio src="${song.src}"></audio>
+          <button class="player-control player-control--pause"></button>
+          <div class="player-track">
+            <span class="player-status"></span>
           </div>
-          <input type="checkbox" name="answer" value="answer-${number}" id="a-${number}">
-          <label class="genre-answer-check" for="a-${number}"></label>
-        </div>`;
+        </div>
+      </div>
+      <input type="checkbox" name="answer" value="${song.name.trim()}" id="${song.name.replace(/ /g, `_`)}">
+      <label class="genre-answer-check" for="${song.name.replace(/ /g, `_`)}"></label>
+    </div>`;
   }).join(`\n\t`)}
-        <button class="genre-answer-send" type="submit" disabled>Ответить</button>
-      </form>
-    </div>
-  </section>`;
-};
+          <button class="genre-answer-send" type="submit" disabled>Ответить</button>
+        </form>
+      </div>
+    </section>`;
+  }
 
-export default template;
+  bind(element) {
+    const genreForm = element.querySelector(`.genre`);
+    const answerBtn = genreForm.querySelector(`.genre-answer-send`);
+
+    genreForm.addEventListener(`change`, function (e) {
+      answerBtn.disabled = e.currentTarget.querySelectorAll(`input:checked`).length === 0;
+    });
+
+    const doCurrentAnswer = () => {
+      this.doCurrentAnswer(genreForm);
+    };
+    answerBtn.addEventListener(`click`, doCurrentAnswer);
+  }
+}
+
+export default GenreScreen;

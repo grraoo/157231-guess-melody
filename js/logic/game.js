@@ -1,11 +1,47 @@
+import Questions from "../data/question";
+
 const initialState = {
-  answers: [],
   notes: 3,
   time: 300,
   screen: `welcome`,
-  results: [0, 10, 20, 12, 16, 14, 15, 8, 5]
+  results: [0, 10, 20, 12, 16, 14, 15, 7, 5],
 };
 
-const gameState = Object.assign(initialState);
+class GameState {
+  constructor(state) {
+    this.initialState = state;
+    this.answers = [];
+    this.notes = state.notes;
+    this.time = state.time;
+    this.screen = state.screen;
+    this.results = state.results;
+    this._questions = new Questions();
 
-export default gameState;
+    this.TYPES = {
+      AUTHOR: `AUTHOR`,
+      GENRE: `GENRE`
+    };
+  }
+  reset() {
+    this.answers.length = 0;
+    this.notes = this.initialState.notes;
+    this.time = this.initialState.time;
+    this.screen = this.initialState.screen;
+    this._questions = new Questions();
+  }
+
+  get question() {
+    this._currentQuestion = (this.time <= 0 || this.notes <= 0) ? null : this.questions.next();
+    return this._currentQuestion;
+  }
+
+  get currentQuestion() {
+    return this._currentQuestion;
+  }
+
+  get questions() {
+    return this._questions;
+  }
+}
+
+export default new GameState(initialState);
