@@ -31,12 +31,7 @@ class GameState {
   }
 
   get question() {
-    this._currentQuestion = (this.time <= 0 || this.notes <= 0) ? null : this.questions.next();
-    return this._currentQuestion;
-  }
-
-  get currentQuestion() {
-    return this._currentQuestion;
+    return (this.time <= 0 || this.notes <= 0) ? null : this.questions.next();
   }
 
   get questions() {
