@@ -4,30 +4,29 @@ const initialState = {
   notes: 3,
   time: 300,
   screen: `welcome`,
-  results: [0, 10, 20, 12, 16, 14, 15, 7, 5],
 };
+const initialResults = [0, 10, 20, 12, 16, 14, 15, 7, 5];
 
 class GameState {
-  constructor(state) {
+  constructor(state, results) {
     this.initialState = state;
-    this.answers = [];
-    this.notes = state.notes;
-    this.time = state.time;
-    this.screen = state.screen;
-    this.results = state.results;
-    this._questions = new Questions();
+    this.results = results;
+    this.init();
 
     this.TYPES = {
       AUTHOR: `AUTHOR`,
       GENRE: `GENRE`
     };
   }
-  reset() {
-    this.answers.length = 0;
+  init() {
+    this.answers = [];
     this.notes = this.initialState.notes;
     this.time = this.initialState.time;
     this.screen = this.initialState.screen;
     this._questions = new Questions();
+  }
+  reset() {
+    this.init();
   }
 
   get question() {
@@ -39,4 +38,4 @@ class GameState {
   }
 }
 
-export default new GameState(initialState);
+export default new GameState(initialState, initialResults);
