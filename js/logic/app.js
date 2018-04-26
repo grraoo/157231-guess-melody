@@ -2,6 +2,7 @@ import AuthorScreen from "../screens/screen-author";
 import GenreScreen from "../screens/screen-genre";
 import ResultScreen from "../screens/screen-result";
 import game from "./game";
+import welcomeScreen from "../screens/screen-main";
 
 const appNode = document.querySelector(`.app`);
 
@@ -10,7 +11,9 @@ class app {
     const mainContent = appNode.querySelector(`.main`);
     appNode.replaceChild(screen, mainContent);
   }
-
+  static init() {
+    this.showScreen(welcomeScreen);
+  }
   static doQuestion() {
     const question = game.questions.next();
 
