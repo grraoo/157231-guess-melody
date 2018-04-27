@@ -59,6 +59,7 @@ const getTemplateWin = () => {
 class ResultScreen extends AbstractView {
 
   get template() {
+    game.timer.pause();
     if (game.notes <= 0) {
       return getTemplateErrors();
     } else if (game.time <= 0) {
