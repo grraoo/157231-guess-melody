@@ -1,10 +1,12 @@
 class Timer {
-  constructor(time, timeEnd = () => {}) {
+  constructor(time, onTick = () => {}) {
     this.time = time;
-    this.timeEnd = timeEnd;
+    this.timeEnd = () => {};
+    this.onTick = onTick;
   }
   tick() {
     --this.time;
+    this.onTick();
     if (this.time <= 0) {
       this.message = `timer stop!`;
       this.pause();

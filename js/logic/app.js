@@ -20,13 +20,13 @@ class app {
 
     if (question) {
 
-      game.timer.start();
       game.startTime = game.time;
-      game.timer.timeEnd = () => {
-        const resultScreen = new ResultScreen().element;
-        this.showScreen(resultScreen);
-      };
-
+      if (!game.timer.timeEnd) {
+        game.timer.timeEnd = () => {
+          const resultScreen = new ResultScreen().element;
+          this.showScreen(resultScreen);
+        };
+      }
       switch (question.type) {
         case game.TYPES.AUTHOR:
           const screenAuthor = new AuthorScreen(question);
@@ -46,7 +46,6 @@ class app {
   }
 
   static doAnswer(answer) {
-    // game.time -= answer.time;
     game.answers.push(answer);
     if (!answer.success) {
       --game.notes;

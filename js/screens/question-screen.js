@@ -3,6 +3,7 @@ import header from "./header";
 import TimerView from "./timer";
 import App from "../logic/app";
 import game from "../logic/game";
+import Timer from "../logic/timer";
 
 class QuestionScreen extends AbstractView {
   constructor(question) {
@@ -22,23 +23,28 @@ class QuestionScreen extends AbstractView {
       return [...answers].some((answer) => song.name === answer.value);
     }));
     const answer = {success: true, time: game.answerTime};
-    console.log(answer);
     // const answer = {success: this.question.isRightAnswer(), time: rnd.getInteger(45)};
     App.doAnswer(answer);
   }
 
   bindTimer(element) {
+
     const timerValue = element.querySelector(`.timer-value`);
+
     const printTime = () => {
       const mins = Math.floor(game.time / 60);
       const secs = game.time % 60;
+
       timerValue.innerHTML = `<span class="timer-value-mins">${mins < 10 ? `0${mins}` : mins}</span><!--
       --><span class="timer-value-dots">:</span><!--
       --><span class="timer-value-secs">${secs < 10 ? `0${secs}` : secs}</span>
     `;
     };
+    if (!(game.timer instanceof Timer)) {
+      game.timer = new Timer(game.time, printTime);
+    }
     printTime();
-    setInterval(printTime, 1000);
+    game.timer.start();
   }
 }
 

@@ -1,5 +1,4 @@
 import Questions from "../data/question";
-import Timer from "./timer";
 
 const initialState = {
   notes: 3,
@@ -22,8 +21,7 @@ class GameState {
     this.answers = [];
     this.notes = this.initialState.notes;
     this._questions = new Questions();
-    this.timer = null;
-    this.timer = new Timer(this.initialState.time);
+    this.timer = {time: this.initialState.time};
   }
   reset() {
     this.init();
@@ -54,4 +52,5 @@ class GameState {
     return this._questions;
   }
 }
+
 export default new GameState(initialState, initialResults);
