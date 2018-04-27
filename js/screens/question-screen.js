@@ -1,7 +1,6 @@
 import AbstractView from "./AbstractView";
 import header from "./header";
 import TimerView from "./timer";
-import rnd from "../utils/rnd";
 import App from "../logic/app";
 import game from "../logic/game";
 
@@ -22,7 +21,8 @@ class QuestionScreen extends AbstractView {
     this.question.answer = new Set([...this.question.melodies].filter((song) => {
       return [...answers].some((answer) => song.name === answer.value);
     }));
-    const answer = {success: true, time: rnd.getInteger(45)};
+    const answer = {success: true, time: game.answerTime};
+    console.log(answer);
     // const answer = {success: this.question.isRightAnswer(), time: rnd.getInteger(45)};
     App.doAnswer(answer);
   }

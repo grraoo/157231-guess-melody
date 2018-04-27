@@ -21,6 +21,7 @@ class app {
     if (question) {
 
       game.timer.start();
+      game.startTime = game.time;
       game.timer.timeEnd = () => {
         const resultScreen = new ResultScreen().element;
         this.showScreen(resultScreen);

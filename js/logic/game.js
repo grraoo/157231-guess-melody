@@ -25,9 +25,6 @@ class GameState {
     this.timer = null;
     this.timer = new Timer(this.initialState.time);
   }
-  get time() {
-    return this.timer.time;
-  }
   reset() {
     this.init();
   }
@@ -36,6 +33,18 @@ class GameState {
   }
   timerPause() {
     clearInterval(this.timerId);
+  }
+
+  set startTime(time) {
+    this._startTime = this.time;
+  }
+
+  get answerTime() {
+    return this._startTime - this.time;
+  }
+
+  get time() {
+    return this.timer.time;
   }
   get question() {
     return (this.time <= 0 || this.notes <= 0) ? null : this.questions.next();
