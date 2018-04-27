@@ -1,6 +1,6 @@
 import AbstractView from "./AbstractView";
 import header from "./header";
-import TimerView from "./timer";
+import timerTemplate from "./timerTemplate";
 import App from "../logic/app";
 import game from "../logic/game";
 import Timer from "../logic/timer";
@@ -14,7 +14,7 @@ class QuestionScreen extends AbstractView {
     this.question = question;
   }
   header() {
-    return `${new TimerView(game).template}\n\t${header()}`;
+    return `${timerTemplate}\n\t${header()}`;
   }
   doCurrentAnswer(eventTarget) {
     const answers = eventTarget.querySelectorAll(`input:checked`);

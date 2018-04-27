@@ -17,20 +17,16 @@ class GameState {
       GENRE: `GENRE`
     };
   }
+
   init() {
     this.answers = [];
     this.notes = this.initialState.notes;
     this._questions = new Questions();
     this.timer = {time: this.initialState.time};
   }
+
   reset() {
     this.init();
-  }
-  timerStart() {
-    this.timerId = setInterval(this.timer.tick, 1000);
-  }
-  timerPause() {
-    clearInterval(this.timerId);
   }
 
   set startTime(time) {
@@ -44,6 +40,7 @@ class GameState {
   get time() {
     return this.timer.time;
   }
+
   get question() {
     return (this.time <= 0 || this.notes <= 0) ? null : this.questions.next();
   }
