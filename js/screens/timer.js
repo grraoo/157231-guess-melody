@@ -1,22 +1,29 @@
-import gameState from "../logic/game";
+import game from "../logic/game";
+import AbstractView from "./AbstractView";
 
+class TimerView extends AbstractView {
+  constructor(gameState) {
+    super();
+    this.time = gameState.time;
+  }
 
-const template = () => {
-  const time = gameState.time;
-  const mins = Math.floor(time / 60);
-  const secs = time % 60;
-  return `<svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
-  <circle
-    cx="390" cy="390" r="370"
-    class="timer-line"
-    style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
-</svg>
-  <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml">
+  get template() {
+    const mins = Math.floor(this.time / 60);
+    const secs = this.time % 60;
+    return `<svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
+    <circle
+      cx="390" cy="390" r="370"
+      class="timer-line"
+      style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
+  </svg>
+    <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml">
     <span class="timer-value-mins">${mins < 10 ? `0${mins}` : mins}</span><!--
     --><span class="timer-value-dots">:</span><!--
     --><span class="timer-value-secs">${secs < 10 ? `0${secs}` : secs}</span>
-  </div>
-`;
-};
+    </div>
+  `;
+  }
+}
 
-export default template;
+
+export default new TimerView(game);
