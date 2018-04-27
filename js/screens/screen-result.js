@@ -3,7 +3,6 @@ import AbstractView from "./AbstractView";
 import game from "../logic/game";
 import countPoints from "../logic/count-points";
 import getResults from "../logic/getResults";
-import welcomeScreen from "../screens/screen-main";
 import declOfNums from "../utils/declOfNum";
 
 const getTemplateErrors = () => {
