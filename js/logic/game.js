@@ -3,7 +3,7 @@ import Timer from "./timer";
 
 const initialState = {
   notes: 3,
-  time: 10
+  time: 300
 };
 const initialResults = [0, 10, 20, 12, 16, 14, 15, 7, 5];
 
@@ -21,7 +21,6 @@ class GameState {
   init() {
     this.answers = [];
     this.notes = this.initialState.notes;
-    // this.time = this.initialState.time;
     this._questions = new Questions();
     this.timer = new Timer(this.initialState.time);
   }
@@ -45,5 +44,4 @@ class GameState {
     return this._questions;
   }
 }
-console.log(new GameState(initialState, initialResults));
 export default new GameState(initialState, initialResults);

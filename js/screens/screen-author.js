@@ -45,6 +45,7 @@ class AuthorScreen extends QuestionScreen {
     };
 
     answerAuthor.addEventListener(`change`, doCurrentAnswer);
+    this.bindTimer(element);
   }
 
 }

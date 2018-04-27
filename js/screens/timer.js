@@ -1,4 +1,3 @@
-import game from "../logic/game";
 import AbstractView from "./AbstractView";
 
 class TimerView extends AbstractView {
@@ -26,4 +25,4 @@ class TimerView extends AbstractView {
 }
 
 
-export default new TimerView(game);
+export default TimerView;

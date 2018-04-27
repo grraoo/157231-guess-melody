@@ -49,6 +49,7 @@ class GenreScreen extends QuestionScreen {
       this.doCurrentAnswer(genreForm);
     };
     answerBtn.addEventListener(`click`, doCurrentAnswer);
+    this.bindTimer(element);
   }
 }
 
