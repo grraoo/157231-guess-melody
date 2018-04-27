@@ -22,6 +22,7 @@ class GameState {
     this.answers = [];
     this.notes = this.initialState.notes;
     this._questions = new Questions();
+    this.timer = null;
     this.timer = new Timer(this.initialState.time);
   }
   get time() {
