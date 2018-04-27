@@ -1,9 +1,9 @@
 import Questions from "../data/question";
+import Timer from "./timer";
 
 const initialState = {
   notes: 3,
-  time: 300,
-  screen: `welcome`,
+  time: 10
 };
 const initialResults = [0, 10, 20, 12, 16, 14, 15, 7, 5];
 
@@ -21,14 +21,22 @@ class GameState {
   init() {
     this.answers = [];
     this.notes = this.initialState.notes;
-    this.time = this.initialState.time;
-    this.screen = this.initialState.screen;
+    // this.time = this.initialState.time;
     this._questions = new Questions();
+    this.timer = new Timer(this.initialState.time);
+  }
+  get time() {
+    return this.timer.time;
   }
   reset() {
     this.init();
   }
-
+  timerStart() {
+    this.timerId = setInterval(this.timer.tick, 1000);
+  }
+  timerPause() {
+    clearInterval(this.timerId);
+  }
   get question() {
     return (this.time <= 0 || this.notes <= 0) ? null : this.questions.next();
   }
@@ -37,5 +45,5 @@ class GameState {
     return this._questions;
   }
 }
-
+console.log(new GameState(initialState, initialResults));
 export default new GameState(initialState, initialResults);

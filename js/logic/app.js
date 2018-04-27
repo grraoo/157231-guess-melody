@@ -18,6 +18,13 @@ class app {
     const question = game.questions.next();
 
     if (question) {
+
+      game.timer.start();
+      game.timer.timeEnd = () => {
+        const resultScreen = new ResultScreen().element;
+        this.showScreen(resultScreen);
+      };
+
       switch (question.type) {
         case game.TYPES.AUTHOR:
           const screenAuthor = new AuthorScreen(question);
@@ -37,7 +44,7 @@ class app {
   }
 
   static doAnswer(answer) {
-    game.time -= answer.time;
+    // game.time -= answer.time;
     game.answers.push(answer);
     if (!answer.success) {
       --game.notes;
