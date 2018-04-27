@@ -29,14 +29,16 @@ class QuestionScreen extends AbstractView {
 
   bindTimer(element) {
     const timerValue = element.querySelector(`.timer-value`);
-    setInterval(() => {
+    const printTime = () => {
       const mins = Math.floor(game.time / 60);
       const secs = game.time % 60;
       timerValue.innerHTML = `<span class="timer-value-mins">${mins < 10 ? `0${mins}` : mins}</span><!--
       --><span class="timer-value-dots">:</span><!--
       --><span class="timer-value-secs">${secs < 10 ? `0${secs}` : secs}</span>
     `;
-    }, 1000);
+    };
+    printTime();
+    setInterval(printTime, 1000);
   }
 }
 
