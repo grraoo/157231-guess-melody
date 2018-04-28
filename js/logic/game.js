@@ -22,7 +22,7 @@ class GameState {
     this.answers = [];
     this.notes = this.initialState.notes;
     this._questions = new Questions();
-    this._time = this.initialState.time;
+    this.time = this.initialState.time;
     this.timer = null;
   }
 
@@ -34,15 +34,8 @@ class GameState {
     return this._startTime - this.time;
   }
 
-  set time(time) {
-    this._time = time;
-  }
-  get time() {
-    return this._time;
-  }
-
   get question() {
-    return (this._time <= 0 || this.notes <= 0) ? null : this.questions.next();
+    return (this.time <= 0 || this.notes <= 0) ? null : this.questions.next();
   }
 
   get questions() {
