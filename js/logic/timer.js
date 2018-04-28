@@ -1,18 +1,19 @@
 class Timer {
-  constructor(time, onTick = () => {}) {
-    this.time = time;
-    this.timeEnd = () => {};
+  constructor(game, onTick = () => {}, onEnd = () => {}) {
+
+    this.game = game;
     this.onTick = onTick;
+    this.onEnd = onEnd;
   }
   tick() {
-    --this.time;
+    --this.game.time;
     this.onTick();
-    if (this.time <= 0) {
+    if (this.game.time <= 0) {
       this.message = `timer stop!`;
       this.pause();
-      this.timeEnd();
+      this.onEnd();
     }
-    return this.time;
+    return this.game.time;
   }
   start() {
     if (!this.timerId) {

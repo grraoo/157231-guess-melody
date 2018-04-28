@@ -4,6 +4,7 @@ import timerTemplate from "./timerTemplate";
 import App from "../logic/app";
 import game from "../logic/game";
 import Timer from "../logic/timer";
+import ResultScreen from "./screen-result";
 
 class QuestionScreen extends AbstractView {
   constructor(question) {
@@ -14,7 +15,7 @@ class QuestionScreen extends AbstractView {
     this.question = question;
   }
   header() {
-    return `${timerTemplate}\n\t${header()}`;
+    return `${timerTemplate()}\n\t${header()}`;
   }
   doCurrentAnswer(eventTarget) {
     const answers = eventTarget.querySelectorAll(`input:checked`);
@@ -27,22 +28,27 @@ class QuestionScreen extends AbstractView {
     App.doAnswer(answer);
   }
 
-  bindTimer(element) {
-
-    const timerValue = element.querySelector(`.timer-value`);
+  bindTimer() {
 
     const printTime = () => {
+      const timerValue = document.querySelector(`.timer-value`);
       const mins = Math.floor(game.time / 60);
       const secs = game.time % 60;
-
-      timerValue.innerHTML = `<span class="timer-value-mins">${mins < 10 ? `0${mins}` : mins}</span><!--
-      --><span class="timer-value-dots">:</span><!--
-      --><span class="timer-value-secs">${secs < 10 ? `0${secs}` : secs}</span>
-    `;
+      if (timerValue) {
+        timerValue.innerHTML = `<span class="timer-value-mins">${mins < 10 ? `0${mins}` : mins}</span><!--
+        --><span class="timer-value-dots">:</span><!--
+        --><span class="timer-value-secs">${secs < 10 ? `0${secs}` : secs}</span>`;
+      }
     };
-    if (!(game.timer instanceof Timer)) {
-      game.timer = new Timer(game.time, printTime);
+
+    const timeEnd = () => {
+      const resultScreen = new ResultScreen().element;
+      this.showScreen(resultScreen);
+    };
+    if (!game.timer) {
+      game.timer = new Timer(game, printTime, timeEnd);
     }
+
     printTime();
     game.timer.start();
   }

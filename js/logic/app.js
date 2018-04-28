@@ -21,12 +21,7 @@ class app {
     if (question) {
 
       game.startTime = game.time;
-      if (!game.timer.timeEnd) {
-        game.timer.timeEnd = () => {
-          const resultScreen = new ResultScreen().element;
-          this.showScreen(resultScreen);
-        };
-      }
+
       switch (question.type) {
         case game.TYPES.AUTHOR:
           const screenAuthor = new AuthorScreen(question);
