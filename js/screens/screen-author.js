@@ -6,6 +6,7 @@ class AuthorScreen extends QuestionScreen {
     const {melodies: songs, theSong} = this.question;
 
     // uncomment to see answers in console
+    // console.clear();
     // console.log(theSong.artist);
     return `<section class="main main--level main--level-artist">
     ${this.header()}
@@ -44,6 +45,7 @@ class AuthorScreen extends QuestionScreen {
     };
 
     answerAuthor.addEventListener(`change`, doCurrentAnswer);
+    this.bindTimer(element);
   }
 
 }

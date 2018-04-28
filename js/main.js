@@ -1,4 +1,3 @@
-import switchScreen from "./utils/switch-screen";
-import welcomeScreen from "./screens/screen-main";
+import App from "./logic/app";
 
-switchScreen(welcomeScreen);
+App.init();
