@@ -43,7 +43,7 @@ class QuestionScreen extends AbstractView {
 
     const timeEnd = () => {
       const resultScreen = new ResultScreen().element;
-      this.showScreen(resultScreen);
+      App.showScreen(resultScreen);
     };
     if (!game.timer) {
       game.timer = new Timer(game, printTime, timeEnd);
