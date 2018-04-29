@@ -31,9 +31,11 @@ class GameState {
     this.time = this.initialState.time;
     this.timer = null;
     // if (!this._questions) {
-    load.then((response) => response.json()).then((data) => {
-      this._questions = new QuestionData(data);
-    }).catch(onError);
+    load().then((response) => response.json())
+        .then((data) => {
+          this._questions = new QuestionData(data);
+        })
+        .catch(onError);
     // }
   }
 
