@@ -26,9 +26,7 @@ class GameState {
     this.timer = null;
     if (!this._questions) {
       load.then((response) => response.json()).then((data) => {
-        console.log(data)
         this._questions = new QuestionData(data);
-        console.log(this._questions)
       });
     }
   }
