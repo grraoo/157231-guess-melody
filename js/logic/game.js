@@ -1,6 +1,12 @@
 import QuestionData from "../data/question";
 import load from "../data/load";
+const onError = (error) => {
+  const node = document.createElement(`div`);
+  node.style = `position: fixed; z-index: 2; width: 180px; margin: 0 auto; text-align: center; background-color: red;`;
 
+  node.textContent = error;
+  document.body.insertAdjacentElement(`afterbegin`, node);
+};
 const initialState = {
   notes: 3,
   time: 300
@@ -24,11 +30,11 @@ class GameState {
     this.notes = this.initialState.notes;
     this.time = this.initialState.time;
     this.timer = null;
-    if (!this._questions) {
-      load.then((response) => response.json()).then((data) => {
-        this._questions = new QuestionData(data);
-      });
-    }
+    // if (!this._questions) {
+    load.then((response) => response.json()).then((data) => {
+      this._questions = new QuestionData(data);
+    }).catch(onError);
+    // }
   }
 
   set startTime(time) {

@@ -58,17 +58,28 @@ const getTemplateWin = () => {
 class ResultScreen extends AbstractView {
 
   get template() {
-    game.timer.pause();
     if (game.notes <= 0) {
       return getTemplateErrors();
     } else if (game.time <= 0) {
       return getTemplateNoTime();
     } else {
+
+      // fetch('https://es.dump.academy/guess-melody/stats/666', {
+      //   method: 'post',
+      //     method: `POST`,
+      // body: JSON.stringify({results: [5, 3, 8]}), headers: {
+      //   'Content-Type': `application/json`
+      // }
+      // }).then(response => console.log(response))
+      // fetch(`GET`, stats)
       return getTemplateWin();
     }
   }
 
   bind(element) {
+    if (game.timer) {
+      game.timer.pause();
+    }
     const replayBtn = element.querySelector(`.main-replay`);
     replayBtn.addEventListener(`click`, function () {
       game.init();
