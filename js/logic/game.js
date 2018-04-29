@@ -1,4 +1,5 @@
-import Questions from "../data/question";
+import QuestionData from "../data/question";
+import load from "../data/load";
 
 const initialState = {
   notes: 3,
@@ -13,17 +14,19 @@ class GameState {
     this.init();
 
     this.TYPES = {
-      AUTHOR: `AUTHOR`,
-      GENRE: `GENRE`
+      AUTHOR: `artist`,
+      GENRE: `genre`
     };
   }
 
   init() {
     this.answers = [];
     this.notes = this.initialState.notes;
-    this._questions = new Questions();
     this.time = this.initialState.time;
     this.timer = null;
+    load.then((response) => response.json()).then((data) => {
+      this._questions = new QuestionData(data);
+    });
   }
 
   set startTime(time) {

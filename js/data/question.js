@@ -1,27 +1,24 @@
-import songs from "./melodies";
-import rnd from "../utils/rnd";
-
 const TYPES = {
-  AUTHOR: `AUTHOR`,
-  GENRE: `GENRE`
+  AUTHOR: `artist`,
+  GENRE: `genre`
 };
 
 class Question {
-  constructor(melodies) {
-    this.type = Math.random() < 0.5 ? TYPES.AUTHOR : TYPES.GENRE;
-    switch (this.type) {
+  constructor(question) {
+    this.question = question.question;
+    this.type = question.type;
+    this.melodies = question.answers;
+
+    switch (question.type) {
       case TYPES.AUTHOR:
-        this.melodies = rnd.getArray(melodies, 3);
-        this.theSong = this.melodies[rnd.getInteger(this.melodies.length)];
-        this.rightAnswer = new Set(this.melodies.filter((song) => song.artist === this.theSong.artist));
+        this.rightAnswer = new Set(this.melodies.filter((song) => song.isCorrect));
+        this.theSong = this.rightAnswer[0];
         break;
       case TYPES.GENRE:
-        this.melodies = rnd.getArray(melodies, 4);
-        this.theSong = this.melodies[rnd.getInteger(4)];
-        this.rightAnswer = new Set(this.melodies.filter((song) => song.genre === this.theSong.genre));
+        this.rightAnswer = new Set(this.melodies.filter((song) => song.genre === question.genre));
         break;
       default:
-        throw new Error(`WAT?! Wrong type: ${this.type}! Must be "AUTHOR" or "GENRE"`);
+        throw new Error(`WAT!& ${question.type}`);
     }
   }
   set answer(answer) {
@@ -41,14 +38,13 @@ class Question {
   }
 }
 
+
 class QuestionsQueue {
-  constructor() {
-    const questions = [];
-    let i = 0;
-    while (i < 10) {
-      questions[i++] = new Question(songs);
-    }
-    this.items = questions;
+  constructor(data) {
+    this.items = [];
+    data.forEach((question) => {
+      this.items.push(new Question(question));
+    });
   }
   next() {
     if (this.items.length) {
@@ -57,5 +53,4 @@ class QuestionsQueue {
     return null;
   }
 }
-
 export default QuestionsQueue;
