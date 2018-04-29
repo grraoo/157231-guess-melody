@@ -12,7 +12,7 @@ class Question {
     switch (question.type) {
       case TYPES.AUTHOR:
         this.rightAnswer = new Set(this.melodies.filter((song) => song.isCorrect));
-        this.theSong = this.rightAnswer[0];
+        this.src = question.src;
         break;
       case TYPES.GENRE:
         this.rightAnswer = new Set(this.melodies.filter((song) => song.genre === question.genre));

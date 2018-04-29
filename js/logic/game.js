@@ -24,9 +24,13 @@ class GameState {
     this.notes = this.initialState.notes;
     this.time = this.initialState.time;
     this.timer = null;
-    load.then((response) => response.json()).then((data) => {
-      this._questions = new QuestionData(data);
-    });
+    if (!this._questions) {
+      load.then((response) => response.json()).then((data) => {
+        console.log(data)
+        this._questions = new QuestionData(data);
+        console.log(this._questions)
+      });
+    }
   }
 
   set startTime(time) {

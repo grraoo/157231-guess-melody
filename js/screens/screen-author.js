@@ -14,7 +14,7 @@ class AuthorScreen extends QuestionScreen {
     <h2 class="title main-title">${question}</h2>
     <div class="player-wrapper">
       <div class="player">
-        <audio src="${question.src}"></audio>
+        <audio src="${this.question.src}"></audio>
         <button class="player-control player-control--pause"></button>
         <div class="player-track">
           <span class="player-status"></span>
