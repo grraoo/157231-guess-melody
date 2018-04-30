@@ -12,7 +12,6 @@ class app {
     appNode.replaceChild(screen, mainContent);
   }
   static init() {
-    game.init();
     this.showScreen(welcomeScreen);
   }
   static doQuestion() {
