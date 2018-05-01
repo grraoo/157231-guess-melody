@@ -77,6 +77,7 @@ class ResultScreen extends AbstractView {
   }
 
   bind(element) {
+
     if (game.timer) {
       game.timer.pause();
     }
