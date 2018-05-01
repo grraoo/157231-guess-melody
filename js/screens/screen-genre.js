@@ -3,14 +3,6 @@ import QuestionScreen from "./question-screen";
 class GenreScreen extends QuestionScreen {
   get template() {
     const {melodies: songs, question} = this.question;
-
-    // uncomment to see answers in console
-    // console.clear();
-    // [...this.question.melodies].forEach((song, index) => {
-    //   if (theSong.genre === song.genre) {
-    //     console.log(index);
-    //   }
-    // });
     return `<section class="main main--level main--level-genre">
       ${this.header()}
       <div class="main-wrap">
@@ -21,14 +13,14 @@ class GenreScreen extends QuestionScreen {
       <div class="player-wrapper">
         <div class="player">
           <audio src="${song.src}"></audio>
-          <button class="player-control player-control--pause"></button>
+          <button class="player-control player-control--pause" data-audio="${song.src}"></button>
           <div class="player-track">
             <span class="player-status"></span>
           </div>
         </div>
       </div>
-      <input type="checkbox" name="answer" value="${song.src.trim()}" id="${song.src.replace(/ /g, `_`)}">
-      <label class="genre-answer-check" for="${song.src.replace(/ /g, `_`)}"></label>
+      <input type="checkbox" name="answer" value="${song.src.trim()}" id="${song.src.trim()}">
+      <label class="genre-answer-check" for="${song.src.trim()}"></label>
     </div>`;
   }).join(`\n\t`)}
           <button class="genre-answer-send" type="submit" disabled>Ответить</button>

@@ -19,16 +19,26 @@ class QuestionScreen extends AbstractView {
   }
   doCurrentAnswer(eventTarget) {
     const answers = eventTarget.querySelectorAll(`input:checked`);
-
     this.question.answer = new Set([...this.question.melodies].filter((song) => {
-      return [...answers].some((answer) => song.name === answer.value);
+      return [...answers].some((answer) => (song.src === answer.value) || (song.image && (song.image.url === answer.value)));
     }));
     const answer = {success: true, time: game.answerTime};
-    // const answer = {success: this.question.isRightAnswer(), time: rnd.getInteger(45)};
+    // const answer = {success: this.question.isRightAnswer(), time: game.answerTime};
     App.doAnswer(answer);
   }
 
   bindTimer() {
+
+    let players = new Set(document.querySelectorAll(`.player-control`));
+    document.addEventListener(`click`, (evt) => {
+      if (players.has(evt.target)) {
+        evt.preventDefault();
+        // console.log(true, evt.target);
+        document.querySelector(`audio[src="${evt.target.dataset.audio}"]`).play();
+        evt.target.classList.remove(`player-control--pause`);
+        evt.target.classList.add(`player-control--play`);
+      }
+    });
 
     const printTime = () => {
       const timerValue = document.querySelector(`.timer-value`);
@@ -44,6 +54,7 @@ class QuestionScreen extends AbstractView {
     const timeEnd = () => {
       const resultScreen = new ResultScreen().element;
       App.showScreen(resultScreen);
+      game.timer.pause();
     };
     if (!game.timer) {
       game.timer = new Timer(game, printTime, timeEnd);
