@@ -4,6 +4,9 @@ import game from "../logic/game";
 import countPoints from "../logic/count-points";
 import getResults from "../logic/getResults";
 import declOfNums from "../utils/declOfNum";
+import Load from "../data/load";
+
+const transfer = new Load();
 
 const getTemplateErrors = () => {
   return `<section class="main main--result">
@@ -29,6 +32,8 @@ const getTemplateWin = () => {
   const errors = 3 - game.notes;
   const points = countPoints(game.answers, errors);
   game.results.push(points);
+  transfer.saveStats(game.results);
+
   const rightAnswers = game.answers.filter((answer) => answer.success);
   const fastAnswers = rightAnswers.filter((answer) => answer.time < 30).length || 0;
   const time = 300 - game.time;
@@ -65,14 +70,7 @@ class ResultScreen extends AbstractView {
     } else if (game.time <= 0) {
       return getTemplateNoTime();
     }
-    // fetch('https://es.dump.academy/guess-melody/stats/666', {
-    //   method: 'post',
-    //     method: `POST`,
-    // body: JSON.stringify({results: [5, 3, 8]}), headers: {
-    //   'Content-Type': `application/json`
-    // }
-    // }).then(response => console.log(response))
-    // fetch(`GET`, stats)
+
     return getTemplateWin();
   }
 
