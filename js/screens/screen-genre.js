@@ -14,7 +14,7 @@ class GenreScreen extends QuestionScreen {
                 <audio src="${song.src}"></audio>
                 <button class="player-control player-control--pause" data-audio="${song.src}"></button>
                 <div class="player-track">
-                  <span class="player-status"></span>
+                  <span class="player-status" data-audio="${song.src}"></span>
                 </div>
               </div>
             </div>

@@ -13,7 +13,7 @@ class AuthorScreen extends QuestionScreen {
               <audio src="${src}"></audio>
               <button class="player-control player-control--pause" data-audio="${this.question.src}"></button>
               <div class="player-track">
-                <span class="player-status"></span>
+                <span class="player-status" data-audio="${this.question.src}"></span>
               </div>
             </div>
           </div>
