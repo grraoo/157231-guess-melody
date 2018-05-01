@@ -1,6 +1,5 @@
-import game from "../logic/game";
-
-export default () => {
+export default (gameState) => {
+  const game = gameState;
   const mins = Math.floor(game.time / 60);
   const secs = game.time % 60;
   return `<svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">

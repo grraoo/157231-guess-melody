@@ -1,10 +1,10 @@
-import game from "../logic/game";
+const template = (gameState) => {
+  const game = gameState;
 
-const template = () => {
   return `
-<div class="main-mistakes">
-  ${new Array(game.notes).fill(`<img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">`).join(`\n\t`)}
-</div>`;
+    <div class="main-mistakes">
+      ${new Array(game.notes).fill(`<img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">`).join(`\n\t`)}
+    </div>`;
 };
 
 export default template;

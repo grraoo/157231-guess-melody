@@ -15,7 +15,7 @@ class QuestionScreen extends AbstractView {
     this.question = question;
   }
   header() {
-    return `${timerTemplate()}\n\t${header()}`;
+    return `${timerTemplate(game)}\n\t${header(game)}`;
   }
   doCurrentAnswer(eventTarget) {
     const answers = eventTarget.querySelectorAll(`input:checked`);
