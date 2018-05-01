@@ -18,10 +18,9 @@ class QuestionScreen extends AbstractView {
     return `${timerTemplate(game)}\n\t${header(game)}`;
   }
   doCurrentAnswer(eventTarget) {
+
     const answers = eventTarget.querySelectorAll(`input:checked`);
-    this.question.answer = new Set([...this.question.melodies].filter((song) => {
-      return [...answers].some((answer) => (song.src === answer.value) || (song.image && (song.image.url === answer.value)));
-    }));
+    this.question.answer = new Set([...this.question.melodies].filter(this.collectAnswer(answers)));
     const answer = {success: true, time: game.answerTime};
     // const answer = {success: this.question.isRightAnswer(), time: game.answerTime};
     App.doAnswer(answer);

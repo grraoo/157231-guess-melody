@@ -29,7 +29,11 @@ class AuthorScreen extends QuestionScreen {
         </div>
       </section>`;
   }
-
+  collectAnswer(answers) {
+    return (song) => {
+      return [...answers].some((answer) => song.image && (song.image.url === answer.value));
+    };
+  }
   bind(element) {
     const answerAuthor = element.querySelector(`.main-list`);
     const doCurrentAnswer = () => {

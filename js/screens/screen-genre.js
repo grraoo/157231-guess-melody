@@ -26,9 +26,12 @@ class GenreScreen extends QuestionScreen {
       </div>
     </section>`;
   }
-
+  collectAnswer(answers) {
+    return (song) => {
+      return [...answers].some((answer) => song.src === answer.value);
+    };
+  }
   bind(element) {
-    console.log(element);
     const genreForm = element.querySelector(`.genre`);
     const answerBtn = genreForm.querySelector(`.genre-answer-send`);
 
