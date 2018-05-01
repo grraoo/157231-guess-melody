@@ -4,7 +4,6 @@ import timerTemplate from "./timerTemplate";
 import App from "../logic/app";
 import game from "../logic/game";
 import Timer from "../logic/timer";
-import playerControl from "../logic/player-control";
 import ResultScreen from "./screen-result";
 
 
@@ -48,7 +47,6 @@ class QuestionScreen extends AbstractView {
     };
     if (!game.timer) {
       game.timer = new Timer(game, printTime, timeEnd);
-      playerControl();
     }
 
     printTime();
