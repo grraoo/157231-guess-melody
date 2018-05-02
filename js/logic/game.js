@@ -11,6 +11,10 @@ class GameState {
       AUTHOR: `artist`,
       GENRE: `genre`
     };
+    this.setResults = (data) => {
+      this.results = data.length ? data[data.length - 1].results : [];
+    };
+
   }
 
   init() {
@@ -21,6 +25,7 @@ class GameState {
     this._questions = null; // will be filled in load.js
     this.results = null; // will be filled in load.js
   }
+
 
   set startTime(time) {
     this._startTime = this.time;

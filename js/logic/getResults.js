@@ -7,7 +7,8 @@ function getResults(all, current) {
   }
 
   const points = current.points;
-  const results = [...all, points].sort((a, b) => Math.sign(a - b));
+  // const results = [...all, points].sort((a, b) => Math.sign(a - b));
+  const results = [...all].sort((a, b) => Math.sign(a - b));
   const index = results.indexOf(points);
   const place = results.length - index;
   const percent = parseInt(((index / results.length) * 100), 10);

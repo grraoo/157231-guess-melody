@@ -29,8 +29,9 @@ const getTemplateNoTime = () => {
 const getTemplateWin = () => {
   const errors = 3 - game.notes;
   const points = countPoints(game.answers, errors);
+
   game.results.push(points);
-  load.saveStats(game.results);
+  load.saveData(load.ENDPOINTS.stats + load.APP_ID, {results: game.results});
 
   const rightAnswers = game.answers.filter((answer) => answer.success);
   const fastAnswers = rightAnswers.filter((answer) => answer.time < 30).length || 0;

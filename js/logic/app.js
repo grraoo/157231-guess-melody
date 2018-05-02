@@ -2,12 +2,17 @@ import loaderScreen from "../screens/loader-screen";
 import AuthorScreen from "../screens/screen-author";
 import GenreScreen from "../screens/screen-genre";
 import ResultScreen from "../screens/screen-result";
+import screenMain from "../screens/screen-main";
 import game from "./game";
 import load from "../data/load";
 import initPlayerControl from "./player-control";
+import QuestionData from "../data/question";
 
 const appNode = document.querySelector(`.app`);
-
+const setQuestions = (data) => {
+  game.questions = new QuestionData(data);
+  app.showScreen(screenMain);
+};
 class app {
   static showScreen(screen) {
     const mainContent = appNode.querySelector(`.main`);
@@ -15,8 +20,9 @@ class app {
   }
   static init() {
     this.showScreen(loaderScreen);
-    load.getStats();
-    load.getQuestions();
+    load.getData(load.ENDPOINTS.stats + load.APP_ID, game.setResults, load.onError, []);
+    load.getData(load.ENDPOINTS.questions, setQuestions, load.onError);
+
     initPlayerControl();
   }
   static doQuestion() {
