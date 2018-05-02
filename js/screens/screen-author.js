@@ -3,41 +3,37 @@ import QuestionScreen from "./question-screen";
 class AuthorScreen extends QuestionScreen {
 
   get template() {
-    const {melodies: songs, question} = this.question;
-
-    // uncomment to see answers in console
-    // console.clear();
-    // console.log(theSong.artist);
+    const {melodies: songs, question: screenQuestion, src} = this.question;
     return `<section class="main main--level main--level-artist">
-    ${this.header()}
-  <div class="main-wrap">
-    <h2 class="title main-title">${question}</h2>
-    <div class="player-wrapper">
-      <div class="player">
-        <audio src="${this.question.src}"></audio>
-        <button class="player-control player-control--pause"></button>
-        <div class="player-track">
-          <span class="player-status"></span>
+        ${this.header()}
+        <div class="main-wrap">
+          <h2 class="title main-title">${screenQuestion}</h2>
+          <div class="player-wrapper">
+            <div class="player">
+              <audio src="${src}"></audio>
+              <button class="player-control player-control--pause" data-audio="${this.question.src}"></button>
+              <div class="player-track">
+                <span class="player-status" data-audio="${this.question.src}"></span>
+              </div>
+            </div>
+          </div>
+          <form class="main-list">
+            ${songs.map((song) => (`<div class="main-answer-wrapper">
+              <input class="main-answer-r" type="radio" id="${song.title.replace(/ /g, `_`)}" name="answer" value="${song.image.url}"/>
+              <label class="main-answer" for="${song.title.replace(/ /g, `_`)}">
+                <img class="main-answer-preview" src="${song.image.url}" alt="${song.title}" width="134" height="134">
+                ${song.title}
+              </label>
+            </div>`)).join(`\n\t`)}
+          </form>
         </div>
-      </div>
-    </div>
-    <form class="main-list">
-    ${songs.map((song) => {
-    return `<div class="main-answer-wrapper">
-      <input class="main-answer-r" type="radio" id="${song.title.replace(/ /g, `_`)}" name="answer" value="${song.title}"/>
-      <label class="main-answer" for="${song.title.replace(/ /g, `_`)}">
-        <img class="main-answer-preview" src="${song.image.url}"
-              alt="${song.title}" width="134" height="134">
-        ${song.title}
-      </label>
-    </div>`;
+      </section>`;
   }
-  ).join(`\n\t`)}
-    </form>
-  </div>
-  </section>`;
+  collectAnswer(answers) {
+    return (song) => {
+      return [...answers].some((answer) => song.image && (song.image.url === answer.value));
+    };
   }
-
   bind(element) {
     const answerAuthor = element.querySelector(`.main-list`);
     const doCurrentAnswer = () => {

@@ -4,6 +4,7 @@ import game from "../logic/game";
 import countPoints from "../logic/count-points";
 import getResults from "../logic/getResults";
 import declOfNums from "../utils/declOfNum";
+import load from "../data/load";
 
 const getTemplateErrors = () => {
   return `<section class="main main--result">
@@ -28,7 +29,10 @@ const getTemplateNoTime = () => {
 const getTemplateWin = () => {
   const errors = 3 - game.notes;
   const points = countPoints(game.answers, errors);
+
   game.results.push(points);
+  load.saveData(load.Endpoints.STATS + load.AppId, {results: game.results}).catch(load.onError);
+
   const rightAnswers = game.answers.filter((answer) => answer.success);
   const fastAnswers = rightAnswers.filter((answer) => answer.time < 30).length || 0;
   const time = 300 - game.time;
@@ -47,10 +51,12 @@ const getTemplateWin = () => {
   <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
 
   <h2 class="title">Вы настоящий меломан!</h2>
-  <div class="main-stat">За&nbsp;${minutes ? `${minutes}&nbsp;${declOfNums(minutes, words.mins)} и ` : ``} ${seconds}&nbsp;${declOfNums(seconds, words.secs)}
-    <br>вы&nbsp;набрали ${points} ${declOfNums(points, words.points)} (${fastAnswers} ${declOfNums(fastAnswers, words.fast)})
-    <br>совершив ${errors} ${declOfNums(errors, words.errs)}</div>
-  <span class="main-comparison">${getResults(game.results, {"points": points, "attempts": game.notes, "timeLeft": 45})}</span>
+  <div class="main-stat">
+    За&nbsp;${minutes ? `${minutes}&nbsp;${declOfNums(minutes, words.mins)} и ` : ``} ${seconds}&nbsp;${declOfNums(seconds, words.secs)}<br>
+    вы&nbsp;набрали ${points} ${declOfNums(points, words.points)} (${fastAnswers} ${declOfNums(fastAnswers, words.fast)})<br>
+    совершив ${errors} ${declOfNums(errors, words.errs)}
+  </div>
+  <span class="main-comparison">${getResults(game.results, {"points": points, "attempts": game.notes, "timeLeft": game.time})}</span>
   <span role="button" tabindex="0" class="main-replay">Сыграть ещё раз</span>
 </section>`;
 };
@@ -62,21 +68,12 @@ class ResultScreen extends AbstractView {
       return getTemplateErrors();
     } else if (game.time <= 0) {
       return getTemplateNoTime();
-    } else {
-
-      // fetch('https://es.dump.academy/guess-melody/stats/666', {
-      //   method: 'post',
-      //     method: `POST`,
-      // body: JSON.stringify({results: [5, 3, 8]}), headers: {
-      //   'Content-Type': `application/json`
-      // }
-      // }).then(response => console.log(response))
-      // fetch(`GET`, stats)
-      return getTemplateWin();
     }
+    return getTemplateWin();
   }
 
   bind(element) {
+
     if (game.timer) {
       game.timer.pause();
     }

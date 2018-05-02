@@ -1,18 +1,30 @@
+import loaderScreen from "../screens/loader-screen";
 import AuthorScreen from "../screens/screen-author";
 import GenreScreen from "../screens/screen-genre";
 import ResultScreen from "../screens/screen-result";
+import screenMain from "../screens/screen-main";
 import game from "./game";
-import welcomeScreen from "../screens/screen-main";
+import load from "../data/load";
+import initPlayerControl from "./player-control";
 
 const appNode = document.querySelector(`.app`);
 
-class app {
+class App {
   static showScreen(screen) {
     const mainContent = appNode.querySelector(`.main`);
     appNode.replaceChild(screen, mainContent);
   }
   static init() {
-    this.showScreen(welcomeScreen);
+    this.showScreen(loaderScreen);
+    load.getData(load.Endpoints.STATS + load.AppId, [])
+        .then(game.setResults)
+        .catch(load.onError);
+    load.getData(load.Endpoints.QUESTIONS)
+        .then(game.setQuestions)
+        .catch(load.onError)
+        .then(this.showScreen(screenMain));
+
+    initPlayerControl();
   }
   static doQuestion() {
     const question = game.questions.next();
@@ -53,4 +65,4 @@ class app {
   }
 }
 
-export default app;
+export default App;

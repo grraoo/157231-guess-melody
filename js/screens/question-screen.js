@@ -6,6 +6,7 @@ import game from "../logic/game";
 import Timer from "../logic/timer";
 import ResultScreen from "./screen-result";
 
+
 class QuestionScreen extends AbstractView {
   constructor(question) {
     if (new.target === QuestionScreen) {
@@ -15,21 +16,19 @@ class QuestionScreen extends AbstractView {
     this.question = question;
   }
   header() {
-    return `${timerTemplate()}\n\t${header()}`;
+    return `${timerTemplate(game)}\n\t${header(game)}`;
   }
   doCurrentAnswer(eventTarget) {
-    const answers = eventTarget.querySelectorAll(`input:checked`);
 
-    this.question.answer = new Set([...this.question.melodies].filter((song) => {
-      return [...answers].some((answer) => song.name === answer.value);
-    }));
-    const answer = {success: true, time: game.answerTime};
-    // const answer = {success: this.question.isRightAnswer(), time: rnd.getInteger(45)};
+    const answers = eventTarget.querySelectorAll(`input:checked`);
+    this.question.answer = new Set([...this.question.melodies].filter(this.collectAnswer(answers)));
+
+    const answer = {success: this.question.isRightAnswer(), time: game.answerTime};
+    // const answer = {success: true, time: game.answerTime}; //для проверки работы экрана статистики закомментировать 26-ю строку и открыть 27-ю )
     App.doAnswer(answer);
   }
 
   bindTimer() {
-
     const printTime = () => {
       const timerValue = document.querySelector(`.timer-value`);
       const mins = Math.floor(game.time / 60);
@@ -44,6 +43,7 @@ class QuestionScreen extends AbstractView {
     const timeEnd = () => {
       const resultScreen = new ResultScreen().element;
       App.showScreen(resultScreen);
+      game.timer.pause();
     };
     if (!game.timer) {
       game.timer = new Timer(game, printTime, timeEnd);
