@@ -6,22 +6,23 @@ import screenMain from "../screens/screen-main";
 import game from "./game";
 import load from "../data/load";
 import initPlayerControl from "./player-control";
-import QuestionData from "../data/question";
 
 const appNode = document.querySelector(`.app`);
-const setQuestions = (data) => {
-  game.questions = new QuestionData(data);
-  app.showScreen(screenMain);
-};
-class app {
+
+class App {
   static showScreen(screen) {
     const mainContent = appNode.querySelector(`.main`);
     appNode.replaceChild(screen, mainContent);
   }
   static init() {
     this.showScreen(loaderScreen);
-    load.getData(load.ENDPOINTS.stats + load.APP_ID, game.setResults, load.onError, []);
-    load.getData(load.ENDPOINTS.questions, setQuestions, load.onError);
+    load.getData(load.endpoints.stats + load.appId, [])
+        .then(game.setResults)
+        .catch(load.onError);
+    load.getData(load.endpoints.questions)
+        .then(game.setQuestions)
+        .then(this.showScreen(screenMain))
+        .catch(load.onError);
 
     initPlayerControl();
   }
@@ -64,4 +65,4 @@ class app {
   }
 }
 
-export default app;
+export default App;

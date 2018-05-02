@@ -1,3 +1,5 @@
+import QuestionData from "../data/question";
+
 const initialState = {
   notes: 3,
   time: 300
@@ -13,6 +15,9 @@ class GameState {
     };
     this.setResults = (data) => {
       this.results = data.length ? data[data.length - 1].results : [];
+    };
+    this.setQuestions = (data) => {
+      this.questions = new QuestionData(data);
     };
 
   }

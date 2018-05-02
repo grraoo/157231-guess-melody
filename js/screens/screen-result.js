@@ -31,7 +31,7 @@ const getTemplateWin = () => {
   const points = countPoints(game.answers, errors);
 
   game.results.push(points);
-  load.saveData(load.ENDPOINTS.stats + load.APP_ID, {results: game.results});
+  load.saveData(load.ENDPOINTS.stats + load.APP_ID, {results: game.results}).catch(load.onError);
 
   const rightAnswers = game.answers.filter((answer) => answer.success);
   const fastAnswers = rightAnswers.filter((answer) => answer.time < 30).length || 0;
