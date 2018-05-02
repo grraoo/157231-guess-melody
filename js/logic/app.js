@@ -1,9 +1,10 @@
+import loaderScreen from "../screens/loader-screen";
 import AuthorScreen from "../screens/screen-author";
 import GenreScreen from "../screens/screen-genre";
 import ResultScreen from "../screens/screen-result";
 import game from "./game";
+import load from "../data/load";
 import initPlayerControl from "./player-control";
-import welcomeScreen from "../screens/screen-main";
 
 const appNode = document.querySelector(`.app`);
 
@@ -13,8 +14,9 @@ class app {
     appNode.replaceChild(screen, mainContent);
   }
   static init() {
-    game.init();
-    this.showScreen(welcomeScreen);
+    this.showScreen(loaderScreen);
+    load.getStats();
+    load.getQuestions();
     initPlayerControl();
   }
   static doQuestion() {

@@ -4,9 +4,7 @@ import game from "../logic/game";
 import countPoints from "../logic/count-points";
 import getResults from "../logic/getResults";
 import declOfNums from "../utils/declOfNum";
-import Load from "../data/load";
-
-const transfer = new Load();
+import load from "../data/load";
 
 const getTemplateErrors = () => {
   return `<section class="main main--result">
@@ -32,7 +30,7 @@ const getTemplateWin = () => {
   const errors = 3 - game.notes;
   const points = countPoints(game.answers, errors);
   game.results.push(points);
-  transfer.saveStats(game.results);
+  load.saveStats(game.results);
 
   const rightAnswers = game.answers.filter((answer) => answer.success);
   const fastAnswers = rightAnswers.filter((answer) => answer.time < 30).length || 0;
@@ -70,7 +68,6 @@ class ResultScreen extends AbstractView {
     } else if (game.time <= 0) {
       return getTemplateNoTime();
     }
-
     return getTemplateWin();
   }
 
@@ -81,6 +78,7 @@ class ResultScreen extends AbstractView {
     }
     const replayBtn = element.querySelector(`.main-replay`);
     replayBtn.addEventListener(`click`, function () {
+      game.init();
       App.init();
     });
   }

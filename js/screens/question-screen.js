@@ -22,13 +22,12 @@ class QuestionScreen extends AbstractView {
 
     const answers = eventTarget.querySelectorAll(`input:checked`);
     this.question.answer = new Set([...this.question.melodies].filter(this.collectAnswer(answers)));
-    const answer = {success: true, time: game.answerTime};
-    // const answer = {success: this.question.isRightAnswer(), time: game.answerTime};
+
+    const answer = {success: this.question.isRightAnswer(), time: game.answerTime};
     App.doAnswer(answer);
   }
 
   bindTimer() {
-
     const printTime = () => {
       const timerValue = document.querySelector(`.timer-value`);
       const mins = Math.floor(game.time / 60);

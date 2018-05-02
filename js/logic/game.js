@@ -1,7 +1,3 @@
-import QuestionData from "../data/question";
-import Load from "../data/load";
-const transfer = new Load();
-
 const initialState = {
   notes: 3,
   time: 300
@@ -10,11 +6,7 @@ const initialState = {
 class GameState {
   constructor(state) {
     this.initialState = state;
-    transfer.getStats().then((response) => response.json()).then((data) => {
-      this.results = data[data.length - 1].results;
-    }).catch(transfer.onError);
     this.init();
-
     this.TYPES = {
       AUTHOR: `artist`,
       GENRE: `genre`
@@ -26,11 +18,8 @@ class GameState {
     this.notes = this.initialState.notes;
     this.time = this.initialState.time;
     this.timer = null;
-    transfer.getQuestions().then((response) => response.json())
-        .then((data) => {
-          this._questions = new QuestionData(data);
-        })
-        .catch(transfer.onError);
+    this._questions = null; // will be filled in load.js
+    this.results = null; // will be filled in load.js
   }
 
   set startTime(time) {
@@ -47,6 +36,9 @@ class GameState {
 
   get questions() {
     return this._questions;
+  }
+  set questions(data) {
+    this._questions = data;
   }
 }
 
