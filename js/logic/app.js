@@ -34,11 +34,11 @@ class App {
       game.startTime = game.time;
 
       switch (question.type) {
-        case game.TYPES.AUTHOR:
+        case game.Types.AUTHOR:
           const screenAuthor = new AuthorScreen(question);
           this.showScreen(screenAuthor.element);
           break;
-        case game.TYPES.GENRE:
+        case game.Types.GENRE:
           const screenGenre = new GenreScreen(question);
           this.showScreen(screenGenre.element);
           break;

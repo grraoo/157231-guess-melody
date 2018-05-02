@@ -9,7 +9,7 @@ class GameState {
   constructor(state) {
     this.initialState = state;
     this.init();
-    this.TYPES = {
+    this.Types = {
       AUTHOR: `artist`,
       GENRE: `genre`
     };
