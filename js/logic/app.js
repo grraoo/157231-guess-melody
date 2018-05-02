@@ -21,8 +21,8 @@ class App {
         .catch(load.onError);
     load.getData(load.endpoints.questions)
         .then(game.setQuestions)
-        .then(this.showScreen(screenMain))
-        .catch(load.onError);
+        .catch(load.onError)
+        .then(this.showScreen(screenMain));
 
     initPlayerControl();
   }

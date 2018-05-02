@@ -7,10 +7,17 @@ class Loader extends AbstractView {
       <style>
         @keyframes loader {
           0% {
-            transform:  translate(-50%, -50%) rotate(0);
+            transform:  translate(-50%, -50%) rotate(0) scale(1);
+            border-radius: 0;
+          }
+          50% {
+
+            transform:  translate(-50%, -50%) rotate(180deg) scale(.5);
+            border-radius: 40%;
           }
           100% {
-            transform:  translate(-50%, -50%) rotate(360deg);
+            transform:  translate(-50%, -50%) rotate(360deg) scale(1);
+            border-radius: 0;
           }
         }
       </style>
@@ -18,7 +25,7 @@ class Loader extends AbstractView {
           style="
             width: 100px;
             height: 100px;
-            background: red;
+            background: #ff9749;
             animation: loader 2s linear infinite;
             position: fixed;
             top: 50%;
