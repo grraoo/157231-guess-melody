@@ -16,10 +16,10 @@ class App {
   }
   static init() {
     this.showScreen(loaderScreen);
-    load.getData(load.endpoints.stats + load.appId, [])
+    load.getData(load.Endpoints.STATS + load.AppId, [])
         .then(game.setResults)
         .catch(load.onError);
-    load.getData(load.endpoints.questions)
+    load.getData(load.Endpoints.QUESTIONS)
         .then(game.setQuestions)
         .catch(load.onError)
         .then(this.showScreen(screenMain));

@@ -1,9 +1,9 @@
 const load = {
-  "endpoints": {
-    stats: `https://es.dump.academy/guess-melody/stats/`,
-    questions: `https://es.dump.academy/guess-melody/questions`
+  "Endpoints": {
+    STATS: `https://es.dump.academy/guess-melody/stats/`,
+    QUESTIONS: `https://es.dump.academy/guess-melody/questions`
   },
-  "appId": `666`,
+  "AppId": `666`,
   "getData": (url, empty) => {
     return fetch(url).then((response) => {
       if (empty && response.status === 404) {

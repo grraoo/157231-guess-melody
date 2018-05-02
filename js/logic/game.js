@@ -27,10 +27,9 @@ class GameState {
     this.notes = this.initialState.notes;
     this.time = this.initialState.time;
     this.timer = null;
-    this._questions = null; // will be filled in load.js
-    this.results = null; // will be filled in load.js
+    this._questions = null; // will be filled in app.js
+    this.results = null; // will be filled in app.js
   }
-
 
   set startTime(time) {
     this._startTime = this.time;
