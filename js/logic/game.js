@@ -1,4 +1,4 @@
-import QuestionData from "../data/question";
+import QuestionData from "../data/questions";
 
 const initialState = {
   notes: 3,

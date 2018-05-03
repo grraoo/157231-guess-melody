@@ -12,13 +12,13 @@ export default () => {
       clearInterval(statusProgress);
       audio.pause();
       if (currentBtn) {
-        currentBtn.classList.remove(`player-control--play`);
-        currentBtn.classList.add(`player-control--pause`);
+        currentBtn.classList.remove(`player-control--pause`);
+        currentBtn.classList.add(`player-control--play`);
       }
       nowPlaying = null;
     };
     const playerControl = (evt) => {
-      let players = new Set(document.querySelectorAll(`.player-control`));
+      const players = new Set(document.querySelectorAll(`.player-control`));
       if (players.has(evt.target)) {
         evt.preventDefault();
         const btn = evt.target;
@@ -33,16 +33,16 @@ export default () => {
         audio.onplaying = () => {
           getStatus(audio, status);
         };
-        if (btn.classList.contains(`player-control--pause`)) {
+        if (btn.classList.contains(`player-control--play`)) {
           if (nowPlaying) {
-            let playingBtn = document.querySelector(`.player-control--play`);
+            const playingBtn = document.querySelector(`.player-control--pause`);
             stopAudio(playingBtn, nowPlaying);
           }
           nowPlaying = audio;
           audio.play();
-          btn.classList.remove(`player-control--pause`);
-          btn.classList.add(`player-control--play`);
-        } else if (btn.classList.contains(`player-control--play`)) {
+          btn.classList.remove(`player-control--play`);
+          btn.classList.add(`player-control--pause`);
+        } else if (btn.classList.contains(`player-control--pause`)) {
           stopAudio(btn, audio);
         }
       }

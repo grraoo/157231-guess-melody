@@ -12,7 +12,7 @@ class GenreScreen extends QuestionScreen {
             <div class="player-wrapper">
               <div class="player">
                 <audio src="${song.src}"></audio>
-                <button class="player-control player-control--pause" data-audio="${song.src}"></button>
+                <button class="player-control player-control--play" data-audio="${song.src}"></button>
                 <div class="player-track">
                   <span class="player-status" data-audio="${song.src}"></span>
                 </div>

@@ -1,4 +1,4 @@
-const TYPES = {
+const Types = {
   AUTHOR: `artist`,
   GENRE: `genre`
 };
@@ -10,11 +10,11 @@ class Question {
     this.melodies = question.answers;
 
     switch (question.type) {
-      case TYPES.AUTHOR:
+      case Types.AUTHOR:
         this.rightAnswer = new Set(this.melodies.filter((song) => song.isCorrect));
         this.src = question.src;
         break;
-      case TYPES.GENRE:
+      case Types.GENRE:
         this.rightAnswer = new Set(this.melodies.filter((song) => song.genre === question.genre));
         break;
       default:
@@ -31,7 +31,7 @@ class Question {
     if (this.answer.size !== this.rightAnswer.size) {
       return false;
     }
-    let isRight = [...this.answer].every((element) => {
+    const isRight = [...this.answer].every((element) => {
       return this.rightAnswer.has(element);
     });
     return isRight;
