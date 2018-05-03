@@ -1,6 +1,7 @@
 import game from "./game";
 export default () => {
   if (!game.controlsIsOn) {
+    const playPromise = (media) => media.play();
     let statusProgress = null;
     let nowPlaying = null;
     const getStatus = (audio, status) => {
@@ -11,6 +12,7 @@ export default () => {
     const stopAudio = (currentBtn, audio) => {
       clearInterval(statusProgress);
       audio.pause();
+      game.timer.pause();
       if (currentBtn) {
         currentBtn.classList.remove(`player-control--pause`);
         currentBtn.classList.add(`player-control--play`);
@@ -39,9 +41,25 @@ export default () => {
             stopAudio(playingBtn, nowPlaying);
           }
           nowPlaying = audio;
-          audio.play();
-          btn.classList.remove(`player-control--play`);
-          btn.classList.add(`player-control--pause`);
+
+          // audio.play();
+          game.timer.pause();
+
+          if (typeof playPromise(audio) !== `undefined`) {
+            playPromise(audio).then(() => {
+              btn.classList.remove(`player-control--play`);
+              btn.classList.add(`player-control--pause`);
+              game.timer.start();
+              audio.play();
+            }).catch((error) => {
+              // console.error(error);
+              // console.dir(audio);
+              btn.classList.remove(`player-control--pause`);
+              btn.classList.add(`player-control--play`);
+              game.timer.pause();
+              audio.pause();
+            });
+          }
         } else if (btn.classList.contains(`player-control--pause`)) {
           stopAudio(btn, audio);
         }

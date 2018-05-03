@@ -3,14 +3,15 @@ const load = {
     STATS: `https://es.dump.academy/guess-melody/stats/`,
     QUESTIONS: `https://es.dump.academy/guess-melody/questions`
   },
-  "AppId": `666`,
+  "AppId": `28091981`,
   "getData": (url, empty) => {
-    return fetch(url).then((response) => {
-      if (empty && response.status === 404) {
-        return empty;
-      }
-      return response.json();
-    });
+    return fetch(url)
+        .then((response) => {
+          if (empty && response.status === 404) {
+            return empty;
+          }
+          return response.json();
+        });
   },
 
   "saveData": (url, results) => {

@@ -11,7 +11,7 @@ class GenreScreen extends QuestionScreen {
           ${songs.map((song) => (`<div class="genre-answer">
             <div class="player-wrapper">
               <div class="player">
-                <audio src="${song.src}"></audio>
+                <audio src="${song.src}" preload="true"></audio>
                 <button class="player-control player-control--play" data-audio="${song.src}"></button>
                 <div class="player-track">
                   <span class="player-status" data-audio="${song.src}"></span>

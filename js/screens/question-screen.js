@@ -5,7 +5,7 @@ import App from "../logic/app";
 import game from "../logic/game";
 import Timer from "../logic/timer";
 import ResultScreen from "./screen-result";
-
+import initPlayerControl from "../logic/player-control";
 
 class QuestionScreen extends AbstractView {
   constructor(question) {
@@ -40,17 +40,17 @@ class QuestionScreen extends AbstractView {
       }
     };
 
-    const timeEnd = () => {
-      const resultScreen = new ResultScreen().element;
-      App.showScreen(resultScreen);
-      game.timer.pause();
-    };
     if (!game.timer) {
+      const timeEnd = () => {
+        const resultScreen = new ResultScreen().element;
+        App.showScreen(resultScreen);
+        game.timer.pause();
+      };
       game.timer = new Timer(game, printTime, timeEnd);
+      initPlayerControl();
     }
 
     printTime();
-    game.timer.start();
   }
 }
 
