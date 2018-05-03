@@ -40,24 +40,18 @@ export default () => {
           stopAudio(playingBtn, nowPlaying);
         }
         nowPlaying = audio;
-
-        // audio.play();
         game.timer.pause();
         const playplay = playPromise(audio);
         document.querySelector(`.main-wrap`).style = `pointer-events: none; opacity: 0.5`;
         if (typeof playplay !== `undefined`) {
-          // audio.load();
-          // console.log(audio);
           playplay.then(() => {
             document.querySelector(`.main-wrap`).style = ``;
             btn.classList.remove(`player-control--play`);
             btn.classList.add(`player-control--pause`);
             game.timer.start();
             audio.play();
-          }).catch((error) => {
+          }).catch(() => {
             document.querySelector(`.main-wrap`).style = ``;
-            console.error(error);
-            // console.dir(audio);
             btn.classList.remove(`player-control--pause`);
             btn.classList.add(`player-control--play`);
             game.timer.pause();
