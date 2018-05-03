@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import getResults from './getResults';
+import getResults from './get-results';
 const myresultsAll = [6, -1, 0, 5, 8, 5, 4, 7, 20];
 const myresultCurr = {
   points: 1,

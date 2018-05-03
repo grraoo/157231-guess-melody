@@ -1,5 +1,5 @@
 import App from "../logic/app";
-import AbstractView from "./AbstractView";
+import AbstractView from "./abstract-view";
 
 class MainScreen extends AbstractView {
   constructor(question) {
