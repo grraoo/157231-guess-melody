@@ -17,6 +17,24 @@
 .main-wrap {
   position: relative;
   z-index: 1;
+
+  &--blocked {
+    pointer-events: none;
+    opacity: 0.5;
+    position: relative;
+
+    &::after {
+      content: "Песня загружается...";
+      position: absolute;
+      color: black;
+      line-height: 1;
+      padding: 1em;
+      background-color: white;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
 }
 
 .logo {

@@ -47,7 +47,7 @@ class QuestionScreen extends AbstractView {
         game.timer.pause();
       };
       game.timer = new Timer(game, printTime, timeEnd);
-      initPlayerControl();
+      document.addEventListener(`click`, initPlayerControl);
     }
 
     printTime();
