@@ -1,4 +1,4 @@
-function getResults(all, current) {
+export default (all, current) => {
   if (current.timeLeft <= 0) {
     return `«Время вышло! Вы не успели отгадать все мелодии»`;
   }
@@ -13,6 +13,4 @@ function getResults(all, current) {
   const place = results.length - index;
   const percent = parseInt(((index / results.length) * 100), 10);
   return `Вы заняли ${place} место из ${results.length} игроков. Это лучше, чем у ${percent}% игроков`;
-}
-
-export default getResults;
+};

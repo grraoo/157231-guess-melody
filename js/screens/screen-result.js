@@ -1,9 +1,9 @@
 import App from "../logic/app";
-import AbstractView from "./AbstractView";
+import AbstractView from "./abstract-view";
 import game from "../logic/game";
 import countPoints from "../logic/count-points";
-import getResults from "../logic/getResults";
-import declOfNums from "../utils/declOfNum";
+import getResults from "../logic/get-results";
+import declOfNums from "../utils/decl-of-nums";
 import load from "../data/load";
 
 const getTemplateErrors = () => {
