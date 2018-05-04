@@ -11,6 +11,7 @@ class Question {
 
     switch (question.type) {
       case Types.AUTHOR:
+      // Set используется чтобы упростить синтаксис проверки ответа в методе isRightAnswer(), чтобы не расписывать indexOf !== -1, всё вот это вот.
         this.rightAnswer = new Set(this.melodies.filter((song) => song.isCorrect));
         this.src = question.src;
         break;
@@ -28,10 +29,7 @@ class Question {
     return this._answer;
   }
   isRightAnswer() {
-    if (this.answer.size !== this.rightAnswer.size) {
-      return false;
-    }
-    return [...this.answer].every((element) => this.rightAnswer.has(element));
+    return this.answer.size === this.rightAnswer.size && [...this.answer].every((element) => this.rightAnswer.has(element));
   }
 }
 
