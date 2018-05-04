@@ -21,7 +21,7 @@ class QuestionScreen extends AbstractView {
   doCurrentAnswer(eventTarget) {
 
     const answers = eventTarget.querySelectorAll(`input:checked`);
-    this.question.answer = new Set([...this.question.melodies].filter(this.collectAnswer(answers)));
+    this.question.answer = [...this.question.melodies].filter(this.collectAnswer(answers));
 
     const answer = {success: this.question.isRightAnswer(), time: game.answerTime};
     App.doAnswer(answer);
