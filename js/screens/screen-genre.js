@@ -35,7 +35,7 @@ class GenreScreen extends QuestionScreen {
     const genreForm = element.querySelector(`.genre`);
     const answerBtn = genreForm.querySelector(`.genre-answer-send`);
 
-    genreForm.addEventListener(`change`, function (e) {
+    genreForm.addEventListener(`change`, (e) => {
       answerBtn.disabled = e.currentTarget.querySelectorAll(`input:checked`).length === 0;
     });
 

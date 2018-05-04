@@ -19,7 +19,24 @@ class GameState {
     this.setQuestions = (data) => {
       this.questions = new QuestionData(data);
     };
+  }
 
+  set startTime(time) {
+    this._startTime = this.time;
+  }
+  get answerTime() {
+    return this._startTime - this.time;
+  }
+
+  set questions(data) {
+    this._questions = data;
+  }
+  get questions() {
+    return this._questions;
+  }
+
+  get question() {
+    return (this.time <= 0 || this.notes <= 0) ? null : this.questions.next();
   }
 
   init() {
@@ -27,27 +44,8 @@ class GameState {
     this.notes = this.initialState.notes;
     this.time = this.initialState.time;
     this.timer = null;
-    this._questions = null; // will be filled in app.js
-    this.results = null; // will be filled in app.js
-  }
-
-  set startTime(time) {
-    this._startTime = this.time;
-  }
-
-  get answerTime() {
-    return this._startTime - this.time;
-  }
-
-  get question() {
-    return (this.time <= 0 || this.notes <= 0) ? null : this.questions.next();
-  }
-
-  get questions() {
-    return this._questions;
-  }
-  set questions(data) {
-    this._questions = data;
+    this._questions = null; // will be filled in app.js after loading
+    this.results = null; // will be filled in app.js after loading
   }
 }
 

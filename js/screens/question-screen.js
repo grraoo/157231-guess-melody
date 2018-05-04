@@ -24,7 +24,6 @@ class QuestionScreen extends AbstractView {
     this.question.answer = new Set([...this.question.melodies].filter(this.collectAnswer(answers)));
 
     const answer = {success: this.question.isRightAnswer(), time: game.answerTime};
-    // const answer = {success: true, time: game.answerTime}; //для проверки работы экрана статистики закомментировать 26-ю строку и открыть 27-ю )
     App.doAnswer(answer);
   }
 

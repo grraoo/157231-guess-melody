@@ -78,7 +78,7 @@ class ResultScreen extends AbstractView {
       game.timer.pause();
     }
     const replayBtn = element.querySelector(`.main-replay`);
-    replayBtn.addEventListener(`click`, function () {
+    replayBtn.addEventListener(`click`, () => {
       game.init();
       App.init();
     });

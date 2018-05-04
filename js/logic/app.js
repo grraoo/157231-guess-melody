@@ -5,7 +5,6 @@ import ResultScreen from "../screens/screen-result";
 import screenMain from "../screens/screen-main";
 import game from "./game";
 import load from "../data/load";
-// import initPlayerControl from "./player-control";
 
 const appNode = document.querySelector(`.app`);
 
@@ -23,8 +22,6 @@ class App {
         .then(game.setQuestions)
         .catch(load.onError)
         .then(this.showScreen(screenMain));
-
-    // initPlayerControl();
   }
   static doQuestion() {
     const question = game.questions.next();

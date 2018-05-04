@@ -31,13 +31,9 @@ class Question {
     if (this.answer.size !== this.rightAnswer.size) {
       return false;
     }
-    const isRight = [...this.answer].every((element) => {
-      return this.rightAnswer.has(element);
-    });
-    return isRight;
+    return [...this.answer].every((element) => this.rightAnswer.has(element));
   }
 }
-
 
 class QuestionsQueue {
   constructor(data) {
