@@ -23,13 +23,13 @@ class Question {
     }
   }
   set answer(answer) {
-    this._answer = new Set(answer);
+    this._answer = answer;
   }
   get answer() {
     return this._answer;
   }
   isRightAnswer() {
-    return this.answer.size === this.rightAnswer.size && [...this.answer].every((element) => this.rightAnswer.has(element));
+    return this.answer.length === this.rightAnswer.size && this.answer.every((element) => this.rightAnswer.has(element));
   }
 }
 
