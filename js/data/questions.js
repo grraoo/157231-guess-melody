@@ -3,6 +3,8 @@ const Types = {
   GENRE: `genre`
 };
 
+const audioFiles = new Set();
+
 class Question {
   constructor(question) {
     this.question = question.question;
@@ -14,9 +16,11 @@ class Question {
       // Set используется чтобы упростить синтаксис проверки ответа в методе isRightAnswer(), чтобы не расписывать indexOf !== -1, всё вот это вот.
         this.rightAnswer = new Set(this.melodies.filter((song) => song.isCorrect));
         this.src = question.src;
+        audioFiles.add(question.src);
         break;
       case Types.GENRE:
         this.rightAnswer = new Set(this.melodies.filter((song) => song.genre === question.genre));
+        audioFiles.add(...this.melodies.map((song) => song.src));
         break;
       default:
         throw new Error(`WAT!& ${question.type}`);
@@ -33,12 +37,13 @@ class Question {
   }
 }
 
-class QuestionsQueue {
+export default class {
   constructor(data) {
     this.items = [];
     data.forEach((question) => {
       this.items.push(new Question(question));
     });
+    this.audios = audioFiles;
   }
   next() {
     if (this.items.length) {
@@ -47,4 +52,3 @@ class QuestionsQueue {
     return null;
   }
 }
-export default QuestionsQueue;

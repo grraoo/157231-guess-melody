@@ -20,8 +20,22 @@ class App {
         .catch(load.onError);
     load.getData(load.Endpoints.QUESTIONS)
         .then(game.setQuestions)
-        .catch(load.onError)
-        .then(this.showScreen(screenMain));
+        .then(() => {
+          console.log(game);
+          let count = 0;
+          game.questions.audios.forEach((mediaSrc) => {
+            const audio = new Audio();
+            audio.src = mediaSrc;
+            audio.addEventListener(`loadeddata`, (e) => {
+              console.dir(e.target);
+              if (++count === game.questions.audios.size) {
+                this.showScreen(screenMain);
+              }
+            });
+          });
+        })
+        .catch(load.onError);
+        // .then(this.showScreen(screenMain));
   }
   static doQuestion() {
     const question = game.questions.next();
